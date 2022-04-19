@@ -4,12 +4,19 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var passport = require('passport');
-var FacebookStrategy = require('passport-facebook');
-
+var FacebookStrategy = require('passport-facebook').Strategy;
+require('dotenv').config();
+const mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+dev_db_url = process.env.CONNECTION_STRING;
+var mongoDB = dev_db_url;
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,17 +30,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
-passport.use(
-  new FacebookStrategy(
-    {
-      clientID: process.env.FACEBOOK_APP_ID,
-      clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: 'localhost:3000/oauth2/redirect/facebook',
-    },
-    function (accessToken, refreshToken, profile, cb) {}
-  )
-);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
