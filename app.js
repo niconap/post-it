@@ -9,6 +9,9 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var authRouter = require('./routes/auth');
+
+var User = require('./models/user');
 
 var app = express();
 
@@ -28,8 +31,36 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: process.env.FACEBOOK_APP_ID,
+      clientSecret: process.env.FACEBOOK_APP_SECRET,
+      callbackURL: 'http://localhost:3000/auth/facebook/redirect',
+    },
+    function (accessToken, refreshToken, profile, cb) {
+      console.log(profile);
+      if (User.exists({ facebookId: profile.id })) {
+        User.findOne({ facebookId: profile.id }, function (err, user) {
+          if (err) return cb(err);
+          return cb(null, user);
+        });
+      } else {
+        User.create(
+          { displayName: profile.displayName, facebookId: profile.id },
+          function (err, user) {
+            if (err) return cb(err);
+            return cb(null, user);
+          }
+        );
+      }
+    }
+  )
+);
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
