@@ -4,6 +4,8 @@ const Schema = mongoose.Schema;
 var UserSchema = new Schema({
   displayName: String,
   facebookId: String,
+  token: String,
+  email: String,
 });
 
 UserSchema.virtual('url').get(() => {
