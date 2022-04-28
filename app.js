@@ -28,7 +28,7 @@ passport.use(
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
       callbackURL: 'http://localhost:3000/auth/facebook/redirect',
-      profileFields: ['id', 'emails', 'name'],
+      profileFields: ['id', 'emails', 'name', 'picture.type(large)'],
     },
     function (accessToken, refreshToken, profile, done) {
       User.exists({ facebookId: profile.id }, function (err, user) {
@@ -43,6 +43,9 @@ passport.use(
               facebookId: profile.id,
               token: accessToken,
               email: profile.emails[0].value,
+              picture: profile.photos
+                ? profile.photos[0].value
+                : '/img/faces/unknown-user-pic.jpg',
             },
             function (err, newUser) {
               if (err) return done(err);

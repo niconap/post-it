@@ -6,6 +6,7 @@ var UserSchema = new Schema({
   facebookId: String,
   token: String,
   email: String,
+  picture: String,
 });
 
 UserSchema.virtual('url').get(() => {
