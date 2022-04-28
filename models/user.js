@@ -7,6 +7,9 @@ var UserSchema = new Schema({
   token: String,
   email: String,
   picture: String,
+  friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  requests: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
 });
 
 UserSchema.virtual('url').get(() => {

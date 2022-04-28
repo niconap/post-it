@@ -46,6 +46,9 @@ passport.use(
               picture: profile.photos
                 ? profile.photos[0].value
                 : '/img/faces/unknown-user-pic.jpg',
+              friends: [],
+              posts: [],
+              requests: [],
             },
             function (err, newUser) {
               if (err) return done(err);
