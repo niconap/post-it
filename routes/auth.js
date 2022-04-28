@@ -23,8 +23,7 @@ router.get('/logout', function (req, res) {
 });
 
 router.get('/success', function (req, res) {
-  console.log(req.user);
-  res.send(`Success!` + req.user);
+  res.json(req.user);
 });
 
 module.exports = router;
