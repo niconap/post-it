@@ -28,6 +28,7 @@ passport.use(
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
       callbackURL: 'http://localhost:3000/auth/facebook/redirect',
+      profileFields: ['id', 'emails', 'name'],
     },
     function (accessToken, refreshToken, profile, done) {
       User.exists({ facebookId: profile.id }, function (err, user) {
@@ -38,10 +39,10 @@ passport.use(
         } else {
           User.create(
             {
-              displayName: profile.displayName,
+              displayName: `${profile.name.givenName} ${profile.name.familyName}`,
               facebookId: profile.id,
               token: accessToken,
-              email: 'sample',
+              email: profile.emails[0].value,
             },
             function (err, newUser) {
               if (err) return done(err);
