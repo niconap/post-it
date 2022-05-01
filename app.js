@@ -1,3 +1,4 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -6,7 +7,6 @@ var logger = require('morgan');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var session = require('express-session');
-require('dotenv').config();
 const mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
