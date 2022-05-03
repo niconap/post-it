@@ -1,34 +1,26 @@
 const express = require('express');
 var router = express.Router();
 const passport = require('passport');
-var User = require('../models/user');
+const jwt = require('jsonwebtoken');
 
-router.get(
-  '/facebook',
-  passport.authenticate('facebook', {
-    scope: ['email'],
-  })
-);
+router.post('/login', function (req, res, next) {
+  passport.authenticate('local', { session: false }, (err, user, info) => {
+    if (err || !user) {
+      return res.status(400).json({
+        message: 'Something went wrong',
+        user,
+        info,
+      });
+    }
 
-router.post(
-  '/facebook/token',
-  passport.authenticate('facebook-token'),
-  function (req, res) {
-    User.findById(req.user._id, function (err, user) {
-      console.log(err);
-      if (err) res.send(err);
-      res.send(user);
+    req.login(user, { session: false }, (err) => {
+      if (err) res.json({ error: err });
+
+      const token = jwt.sign(user.toJSON(), process.env.SESSION_SECRET);
+      return res.json({ user, token });
     });
-  }
-);
-
-router.get(
-  '/facebook/redirect',
-  passport.authenticate('facebook', {
-    failureRedirect: '/auth/facebook',
-    successRedirect: '/auth/success',
-  })
-);
+  })(req, res);
+});
 
 router.get('/logout', function (req, res) {
   req.logout();
