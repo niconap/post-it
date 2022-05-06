@@ -8,6 +8,7 @@ var PostSchema = new Schema({
   likes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   timeStamp: { type: Date, required: true },
+  user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 });
 
 PostSchema.virtual('url').get(() => {

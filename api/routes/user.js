@@ -2,9 +2,11 @@ const express = require('express');
 var router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-const { get_user } = require('../controllers/userController');
+const { get_user, delete_user } = require('../controllers/userController');
 
 router.get('/:id', verifyToken, get_user);
+
+router.delete('/:id', verifyToken, delete_user);
 
 function verifyToken(req, res, next) {
   console.log('verify');
