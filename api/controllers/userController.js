@@ -75,8 +75,13 @@ exports.get_user = function (req, res, next) {
       res.sendStatus(403);
       return;
     }
-    res.json({
-      authData,
+    User.findById(authData._id, function (err, user) {
+      if (err) return next(err);
+      if (user == null) {
+        res.sendStatus(404);
+      } else {
+        res.json({ user });
+      }
     });
   });
 };
