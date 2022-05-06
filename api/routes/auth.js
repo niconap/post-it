@@ -2,7 +2,7 @@ const express = require('express');
 var router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
-const { user_signup } = require('../controllers/userController');
+const { signup_user } = require('../controllers/userController');
 
 router.post('/login', function (req, res, next) {
   passport.authenticate('local', { session: false }, (err, user, info) => {
@@ -23,7 +23,7 @@ router.post('/login', function (req, res, next) {
   })(req, res);
 });
 
-router.post('/signup', user_signup);
+router.post('/signup', signup_user);
 
 router.get('/logout', function (req, res) {
   req.logout();

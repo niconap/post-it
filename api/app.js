@@ -14,6 +14,7 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
+const userRouter = require('./routes/user');
 
 var User = require('./models/user');
 
@@ -89,8 +90,9 @@ app.use(
 );
 app.use(passport.session());
 
-app.use('/', indexRouter);
-app.use('/auth', authRouter);
+app.use('/api', indexRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/user', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

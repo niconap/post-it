@@ -2,8 +2,9 @@ const User = require('../models/user');
 const { body, validationResult } = require('express-validator');
 const async = require('async');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-exports.user_signup = [
+exports.signup_user = [
   body('username', 'Username must be longer than 3 characters')
     .trim()
     .isLength({ min: 3 })
@@ -65,3 +66,15 @@ exports.user_signup = [
     }
   },
 ];
+
+exports.get_user = function (req, res, next) {
+  jwt.verify(req.token, process.env.SESSION_SECRET, (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+      return;
+    }
+    res.json({
+      authData,
+    });
+  });
+};
