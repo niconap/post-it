@@ -193,12 +193,12 @@ exports.update_user = [
       },
       function (err, results) {
         if (err) return next(err);
-        if (results.user.username != req.authData.username) {
-          res.sendStatus(403);
-          return;
-        }
         if (results.user == null) {
           res.sendStatus(404);
+          return;
+        }
+        if (results.user.username != req.authData.username) {
+          res.sendStatus(403);
           return;
         }
         const errors = validationResult(req);
