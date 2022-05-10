@@ -1,7 +1,5 @@
 const express = require('express');
 var router = express.Router();
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
 const {
   get_user,
   delete_user,
