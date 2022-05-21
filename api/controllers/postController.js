@@ -71,3 +71,24 @@ exports.post_create = [
     }
   },
 ];
+
+exports.post_get_general = function (req, res, next) {
+  async.parallel(
+    {
+      posts: function (callback) {
+        Post.find().exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) return next(err);
+      if (results.posts == null) {
+        res.sendStatus(404);
+        return;
+      }
+      res.send({
+        posts: results.posts,
+      });
+      return;
+    }
+  );
+};
