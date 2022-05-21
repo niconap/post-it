@@ -13,8 +13,4 @@ var UserSchema = new Schema({
   posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
 });
 
-UserSchema.virtual('url').get(() => {
-  return '/user/' + this._id;
-});
-
 module.exports = mongoose.model('User', UserSchema);
