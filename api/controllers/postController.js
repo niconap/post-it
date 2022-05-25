@@ -178,3 +178,80 @@ exports.post_delete = function (req, res, next) {
     }
   });
 };
+
+exports.post_update = [
+  (req, res, next) => {
+    jwt.verify(req.token, process.env.SESSION_SECRET, function (err, authData) {
+      if (err) {
+        res.sendStatus(403);
+        return;
+      } else {
+        req.authData = authData;
+        next();
+      }
+    });
+  },
+
+  body('title', 'Your title must be less than 100 characters long.')
+    .trim()
+    .isLength({ max: 100 }),
+  body('title', 'Your title must be at least 2 characters long.')
+    .trim()
+    .isLength({ min: 2 }),
+  body('content', 'Your content must be less than 300 characters.')
+    .trim()
+    .isLength({ max: 300 }),
+  body('content', 'Your content must be at least 2 characters long.')
+    .trim()
+    .isLength({ min: 2 }),
+
+  (req, res, next) => {
+    async.parallel(
+      {
+        post: function (callback) {
+          Post.findById(req.params.id).exec(callback);
+        },
+      },
+      function (err, results) {
+        if (err) return next(err);
+        if (results.post == null) {
+          res.sendStatus(404);
+          return;
+        }
+        if (results.post.user != req.authData._id) {
+          res.sendStatus(403);
+          return;
+        }
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+          res.json({ errors: errors.array() });
+          return;
+        } else {
+          if (err) return next(err);
+          let post = new Post({
+            title: req.body.title,
+            content: req.body.content,
+            likes: results.post.likes,
+            comments: results.post.comments,
+            timeStamp: new Date(),
+            user: req.authData._id,
+            _id: results.post._id,
+          });
+
+          Post.findByIdAndUpdate(
+            results.post._id,
+            post,
+            { new: true },
+            function (err, thePost) {
+              if (err) return next(err);
+              res.json({
+                message: 'Post has been updated',
+                post: thePost,
+              });
+            }
+          );
+        }
+      }
+    );
+  },
+];

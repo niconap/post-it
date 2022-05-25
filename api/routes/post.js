@@ -5,6 +5,7 @@ const {
   post_get_general,
   post_get_friends,
   post_delete,
+  post_update,
 } = require('../controllers/postController');
 
 router.post('/create', verifyToken, post_create);
@@ -14,6 +15,8 @@ router.get('/get/general', post_get_general);
 router.get('/get/friends', verifyToken, post_get_friends);
 
 router.delete('/:id', verifyToken, post_delete);
+
+router.put('/:id', verifyToken, post_update);
 
 function verifyToken(req, res, next) {
   const bearerHeader = req.headers['authorization'];
