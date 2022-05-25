@@ -105,9 +105,7 @@ exports.delete_user = function (req, res, next) {
         },
       },
       function (err, results) {
-        if (err) {
-          return next(err);
-        }
+        if (err) return next(err);
         if (results.user == null) {
           res.sendStatus(404);
           return;

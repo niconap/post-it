@@ -1,8 +1,10 @@
 const User = require('../models/user');
 const Post = require('../models/post');
+const Comment = require('../models/comment');
 const async = require('async');
 const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
+const post = require('../models/post');
 
 exports.post_create = [
   (req, res, next) => {
@@ -76,7 +78,9 @@ exports.post_get_general = function (req, res, next) {
   async.parallel(
     {
       posts: function (callback) {
-        Post.find().exec(callback);
+        Post.find()
+          .populate({ path: 'user', select: 'username firstName lastName' })
+          .exec(callback);
       },
     },
     function (err, results) {
@@ -91,4 +95,86 @@ exports.post_get_general = function (req, res, next) {
       return;
     }
   );
+};
+
+// Finish when friend mechanic is in place
+exports.post_get_friends = [
+  (req, res, next) => {
+    jwt.verify(req.token, process.env.SESSION_SECRET, function (err, authData) {
+      if (err) {
+        res.sendStatus(403);
+        return;
+      } else {
+        req.authData = authData;
+        next();
+      }
+    });
+  },
+
+  (req, res, next) => {
+    async.parallel(
+      {
+        posts: function (callback) {
+          authData.friends.forEach((element) => {
+            console.log(element);
+          });
+          Post.find().exec(callback);
+        },
+      },
+      function (err, results) {
+        if (err) return next(err);
+        if (results.posts == null) {
+          res.sendStatus(404);
+          return;
+        }
+        res.send({
+          posts: results.posts,
+        });
+        return;
+      }
+    );
+  },
+];
+
+exports.post_delete = function (req, res, next) {
+  jwt.verify(req.token, process.env.SESSION_SECRET, function (err, authData) {
+    if (err) {
+      res.sendStatus(403);
+      return;
+    } else {
+      async.parallel(
+        {
+          post: function (callback) {
+            Post.findById(req.params.id).exec(callback);
+          },
+          comments: function (callback) {
+            Comment.find({ post: req.params.id }).exec(callback);
+          },
+        },
+        function (err, results) {
+          if (err) return next(err);
+          if (results.post == null) {
+            res.sendStatus(404);
+            return;
+          }
+          if (results.post.user != authData._id) {
+            res.sendStatus(403);
+            return;
+          }
+          if (results.comments.length > 0) {
+            Comment.deleteMany({ post: req.params.id }, function (err) {
+              if (err) return next(err);
+            });
+          }
+          Post.findByIdAndDelete(req.params.id, function (err, thePost) {
+            if (err) return next(err);
+            res.json({
+              message: 'Post and associated comments have been removed.',
+              post: thePost,
+            });
+          });
+        }
+      );
+    }
+  });
 };

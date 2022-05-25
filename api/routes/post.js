@@ -3,11 +3,17 @@ const router = express.Router();
 const {
   post_create,
   post_get_general,
+  post_get_friends,
+  post_delete,
 } = require('../controllers/postController');
 
-router.post('/new', verifyToken, post_create);
+router.post('/create', verifyToken, post_create);
 
 router.get('/get/general', post_get_general);
+
+router.get('/get/friends', verifyToken, post_get_friends);
+
+router.delete('/:id', verifyToken, post_delete);
 
 function verifyToken(req, res, next) {
   const bearerHeader = req.headers['authorization'];
