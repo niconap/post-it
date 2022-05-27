@@ -32,7 +32,10 @@ exports.friend_request_user = [
           res.sendStatus(400);
           return;
         }
-        if (results.followedUser.requests.includes(req.authData._id)) {
+        if (
+          results.followedUser.requests.includes(req.authData._id) ||
+          results.followedUser.friends.includes(req.authData._id)
+        ) {
           res.sendStatus(400);
           return;
         }
@@ -85,7 +88,10 @@ exports.friend_accept_user = [
           res.sendStatus(400);
           return;
         }
-        if (results.acceptedUser.friends.includes(req.authData._id)) {
+        if (
+          req.authData.friends.includes(results.acceptedUser._id) ||
+          !req.authData.requests.includes(results.acceptedUser._id)
+        ) {
           res.sendStatus(400);
           return;
         }
