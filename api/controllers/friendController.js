@@ -30,8 +30,12 @@ exports.friend_request_user = [
         }
         if (results.followedUser._id == req.authData._id) {
           res.sendStatus(400);
+          return;
         }
-        // Chech if user is already following
+        if (results.followedUser.requests.includes(req.authData._id)) {
+          res.sendStatus(400);
+          return;
+        }
         User.updateOne(
           { _id: results.followedUser._id },
           {
