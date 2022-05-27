@@ -5,12 +5,15 @@ const {
   delete_user,
   update_user,
 } = require('../controllers/userController');
+const { friend_request_user } = require('../controllers/friendController');
 
 router.get('/:id', verifyToken, get_user);
 
 router.delete('/:id', verifyToken, delete_user);
 
 router.put('/:id', verifyToken, update_user);
+
+router.post('/follow/:id', verifyToken, friend_request_user);
 
 function verifyToken(req, res, next) {
   const bearerHeader = req.headers['authorization'];
