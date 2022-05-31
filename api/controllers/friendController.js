@@ -96,6 +96,22 @@ exports.friend_accept_user = [
           return;
         }
         User.updateOne(
+          {
+            _id: results.acceptedUser._id,
+          },
+          {
+            $push: {
+              friends: req.authData._id,
+            },
+            $pull: {
+              requests: req.authData._id,
+            },
+          },
+          function (err) {
+            if (err) return next(err);
+          }
+        );
+        User.updateOne(
           { _id: req.authData._id },
           {
             $push: {
