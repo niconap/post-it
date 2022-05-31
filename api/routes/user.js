@@ -8,6 +8,7 @@ const {
 const {
   friend_request_user,
   friend_accept_user,
+  friend_remove,
 } = require('../controllers/friendController');
 
 router.get('/:id', verifyToken, get_user);
@@ -16,9 +17,11 @@ router.delete('/:id', verifyToken, delete_user);
 
 router.put('/:id', verifyToken, update_user);
 
-router.post('/follow/:id', verifyToken, friend_request_user);
+router.put('/friend/request/:id', verifyToken, friend_request_user);
 
-router.post('/accept/:id', verifyToken, friend_accept_user);
+router.put('/friend/accept/:id', verifyToken, friend_accept_user);
+
+router.delete('/friend/remove/:id', verifyToken, friend_remove);
 
 function verifyToken(req, res, next) {
   const bearerHeader = req.headers['authorization'];
