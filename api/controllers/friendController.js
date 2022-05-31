@@ -103,9 +103,6 @@ exports.friend_accept_user = [
             $push: {
               friends: req.authData._id,
             },
-            $pull: {
-              requests: req.authData._id,
-            },
           },
           function (err) {
             if (err) return next(err);
@@ -125,6 +122,58 @@ exports.friend_accept_user = [
             if (err) return next(err);
             res.json({
               message: `${results.acceptedUser.username} has succesfully been accepted as a friend`,
+            });
+          }
+        );
+      }
+    );
+  },
+];
+
+exports.friend_remove = [
+  (req, res, next) => {
+    jwt.verify(req.token, process.env.SESSION_SECRET, (err, authData) => {
+      if (err) {
+        res.sendStatus(403);
+        return;
+      } else {
+        req.authData = authData;
+        next();
+      }
+    });
+  },
+
+  (req, res, next) => {
+    async.parallel(
+      {
+        removedUser: function (callback) {
+          User.findById(req.params.id).exec(callback);
+        },
+      },
+      function (err, results) {
+        if (err) return next(err);
+        if (results.removedUser == null) {
+          res.sendStatus(404);
+          return;
+        }
+        if (
+          results.removedUser._id == req.authData._id ||
+          !req.authData.friends.includes(results.removedUser._id)
+        ) {
+          res.sendStatus(400);
+          return;
+        }
+        User.updateOne(
+          { _id: req.authData._id },
+          {
+            $pull: {
+              friends: results.removedUser._id,
+            },
+          },
+          function (err) {
+            if (err) return next(err);
+            res.json({
+              message: `${results.removedUser.username} has succesfully been removed from your friend list`,
             });
           }
         );
