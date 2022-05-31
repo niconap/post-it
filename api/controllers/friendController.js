@@ -18,29 +18,29 @@ exports.friend_request_user = [
   (req, res, next) => {
     async.parallel(
       {
-        followedUser: function (callback) {
+        requestedUser: function (callback) {
           User.findById(req.params.id).exec(callback);
         },
       },
       function (err, results) {
         if (err) return next(err);
-        if (results.followedUser == null) {
+        if (results.requestedUser == null) {
           res.sendStatus(404);
           return;
         }
-        if (results.followedUser._id == req.authData._id) {
+        if (results.requestedUser._id == req.authData._id) {
           res.sendStatus(400);
           return;
         }
         if (
-          results.followedUser.requests.includes(req.authData._id) ||
-          results.followedUser.friends.includes(req.authData._id)
+          results.requestedUser.requests.includes(req.authData._id) ||
+          results.requestedUser.friends.includes(req.authData._id)
         ) {
           res.sendStatus(400);
           return;
         }
         User.updateOne(
-          { _id: results.followedUser._id },
+          { _id: results.requestedUser._id },
           {
             $push: {
               requests: req.authData._id,
@@ -49,7 +49,7 @@ exports.friend_request_user = [
           function (err) {
             if (err) return next(err);
             res.json({
-              message: `Friend request to ${results.followedUser.username} has been succesfully sent`,
+              message: `Friend request to ${results.requestedUser.username} has been succesfully sent`,
             });
           }
         );
