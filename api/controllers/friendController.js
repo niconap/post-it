@@ -90,7 +90,7 @@ exports.friend_accept_user = [
         }
         if (
           req.authData.friends.includes(results.acceptedUser._id) ||
-          !req.authData.requests.includes(results.acceptedUser._id)
+          !req.authData.requests.includes(results.acceptedUser._id.toString())
         ) {
           res.sendStatus(400);
           return;

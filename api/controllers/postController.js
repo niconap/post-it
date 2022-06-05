@@ -63,6 +63,17 @@ exports.post_create = [
             user: results.user[0]._id,
           }).save((err, newPost) => {
             if (err) return next(err);
+            User.updateOne(
+              { _id: results.user[0]._id },
+              {
+                $push: {
+                  posts: newPost._id,
+                },
+              },
+              function (err) {
+                if (err) return next(err);
+              }
+            );
             res.json({
               message: 'A new post has succesfully been created',
               post: newPost,
@@ -115,14 +126,12 @@ exports.post_get_friends = [
     async.parallel(
       {
         posts: function (callback) {
-          authData.friends.forEach((element) => {
-            console.log(element);
-          });
-          Post.find().exec(callback);
+          Post.find({ user: { $in: req.authData.friends } }).exec(callback);
         },
       },
       function (err, results) {
         if (err) return next(err);
+        console.log(req.authData.friends);
         if (results.posts == null) {
           res.sendStatus(404);
           return;
@@ -168,6 +177,17 @@ exports.post_delete = function (req, res, next) {
           }
           Post.findByIdAndDelete(req.params.id, function (err, thePost) {
             if (err) return next(err);
+            User.updateOne(
+              { _id: results.post.user },
+              {
+                $pull: {
+                  posts: results.post._id,
+                },
+              },
+              function (err) {
+                if (err) return next(err);
+              }
+            );
             res.json({
               message: 'Post and associated comments have been removed.',
               post: thePost,
