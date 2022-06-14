@@ -108,7 +108,6 @@ exports.post_get_general = function (req, res, next) {
   );
 };
 
-// Finish when friend mechanic is in place
 exports.post_get_friends = [
   (req, res, next) => {
     jwt.verify(req.token, process.env.SESSION_SECRET, function (err, authData) {
@@ -131,7 +130,6 @@ exports.post_get_friends = [
       },
       function (err, results) {
         if (err) return next(err);
-        console.log(req.authData.friends);
         if (results.posts == null) {
           res.sendStatus(404);
           return;
