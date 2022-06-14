@@ -90,10 +90,12 @@ exports.post_get_general = function (req, res, next) {
       posts: function (callback) {
         Post.find()
           .populate({ path: 'user', select: 'username firstName lastName' })
+          .populate('comments')
           .exec(callback);
       },
     },
     function (err, results) {
+      console.log(err);
       if (err) return next(err);
       if (results.posts == null) {
         res.sendStatus(404);
@@ -124,7 +126,10 @@ exports.post_get_friends = [
     async.parallel(
       {
         posts: function (callback) {
-          Post.find({ user: { $in: req.authData.friends } }).exec(callback);
+          Post.find({ user: { $in: req.authData.friends } })
+            .populate({ path: 'user', select: 'username firstName lastName' })
+            .populate('comments')
+            .exec(callback);
         },
       },
       function (err, results) {
