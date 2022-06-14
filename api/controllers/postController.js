@@ -4,7 +4,6 @@ const Comment = require('../models/comment');
 const async = require('async');
 const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
-const post = require('../models/post');
 
 exports.post_create = [
   (req, res, next) => {
