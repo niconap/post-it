@@ -52,6 +52,7 @@ exports.comment_create = [
 
           let comment = new Comment({
             user: req.authData._id,
+            username: req.authData.username,
             content: req.body.content,
             timeStamp: new Date(),
             post: results.post._id,
