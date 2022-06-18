@@ -277,3 +277,24 @@ exports.post_update = [
     );
   },
 ];
+
+exports.post_get_single = function (req, res, next) {
+  async.parallel(
+    {
+      post: function (callback) {
+        Post.findOne({ _id: req.params.id })
+          .populate({ path: 'user', select: 'username firstName lastName' })
+          .populate('comments')
+          .exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) return next(err);
+      if (results.post == null) {
+        res.sendStatus(404);
+        return;
+      }
+      res.json(results.post);
+    }
+  );
+};

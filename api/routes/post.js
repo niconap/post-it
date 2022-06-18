@@ -6,6 +6,7 @@ const {
   post_get_friends,
   post_delete,
   post_update,
+  post_get_single,
 } = require('../controllers/postController');
 const {
   comment_create,
@@ -17,6 +18,8 @@ router.post('/', verifyToken, post_create);
 router.get('/general', post_get_general);
 
 router.get('/friends', verifyToken, post_get_friends);
+
+router.get('/:id', post_get_single);
 
 router.delete('/:id', verifyToken, post_delete);
 
