@@ -1,9 +1,10 @@
 const express = require('express');
 var router = express.Router();
 const {
-  get_user,
+  get_current_user,
   delete_user,
   update_user,
+  get_users,
 } = require('../controllers/userController');
 const {
   friend_request_user,
@@ -11,7 +12,9 @@ const {
   friend_remove,
 } = require('../controllers/friendController');
 
-router.get('/:id', verifyToken, get_user);
+router.get('/:id', verifyToken, get_current_user);
+
+router.get('/', get_users);
 
 router.delete('/:id', verifyToken, delete_user);
 

@@ -69,7 +69,7 @@ exports.signup_user = [
   },
 ];
 
-exports.get_user = function (req, res, next) {
+exports.get_current_user = function (req, res, next) {
   jwt.verify(req.token, process.env.SESSION_SECRET, (err, authData) => {
     if (err) {
       res.sendStatus(403);
@@ -239,3 +239,19 @@ exports.update_user = [
     );
   },
 ];
+
+exports.get_users = function (req, res, next) {
+  async.parallel(
+    {
+      users: function (callback) {
+        User.find()
+          .select('username firstName lastName friends requests')
+          .exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) return next(err);
+      res.json(results.users);
+    }
+  );
+};
