@@ -126,7 +126,10 @@ exports.post_get_friends = [
     async.parallel(
       {
         posts: function (callback) {
-          Post.find({ user: { $in: req.authData.friends } })
+          Post.find({
+            user: { $in: req.authData.friends },
+            user: req.authData._id,
+          })
             .populate({ path: 'user', select: 'username firstName lastName' })
             .populate('comments')
             .exec(callback);
