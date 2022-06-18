@@ -7,19 +7,24 @@ const {
   post_delete,
   post_update,
 } = require('../controllers/postController');
-const { comment_create } = require('../controllers/commentController');
+const {
+  comment_create,
+  comment_delete,
+} = require('../controllers/commentController');
 
-router.post('/create', verifyToken, post_create);
+router.post('/', verifyToken, post_create);
 
-router.get('/get/general', post_get_general);
+router.get('/general', post_get_general);
 
-router.get('/get/friends', verifyToken, post_get_friends);
+router.get('/friends', verifyToken, post_get_friends);
 
 router.delete('/:id', verifyToken, post_delete);
 
 router.put('/:id', verifyToken, post_update);
 
-router.post('/:id/comment', verifyToken, comment_create);
+router.post('/:id/comment/', verifyToken, comment_create);
+
+router.delete('/:postid/comment/:commentid', verifyToken, comment_delete);
 
 function verifyToken(req, res, next) {
   const bearerHeader = req.headers['authorization'];
