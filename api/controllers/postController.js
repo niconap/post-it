@@ -298,3 +298,87 @@ exports.post_get_single = function (req, res, next) {
     }
   );
 };
+
+exports.post_like_add = function (req, res, next) {
+  jwt.verify(req.token, process.env.SESSION_SECRET, function (err, authData) {
+    if (err) {
+      res.sendStatus(403);
+      return;
+    } else {
+      async.parallel(
+        {
+          post: function (callback) {
+            Post.findOne({ _id: req.params.id }).exec(callback);
+          },
+        },
+        function (err, results) {
+          if (err) return next(err);
+          if (results.post == null) {
+            res.sendStatus(404);
+            return;
+          }
+          if (results.post.likes.includes(authData._id)) {
+            res.sendStatus(400);
+            return;
+          }
+          Post.findByIdAndUpdate(
+            req.params.id,
+            {
+              $push: {
+                likes: authData._id,
+              },
+            },
+            function (err) {
+              if (err) return next(err);
+              res.json({
+                message: `A like has succesfully been added to a post called ${results.post.title}`,
+              });
+            }
+          );
+        }
+      );
+    }
+  });
+};
+
+exports.post_like_remove = function (req, res, next) {
+  jwt.verify(req.token, process.env.SESSION_SECRET, function (err, authData) {
+    if (err) {
+      res.sendStatus(403);
+      return;
+    } else {
+      async.parallel(
+        {
+          post: function (callback) {
+            Post.findOne({ _id: req.params.id }).exec(callback);
+          },
+        },
+        function (err, results) {
+          if (err) return next(err);
+          if (results.post == null) {
+            res.sendStatus(404);
+            return;
+          }
+          if (!results.post.likes.includes(authData._id)) {
+            res.sendStatus(400);
+            return;
+          }
+          Post.findByIdAndUpdate(
+            req.params.id,
+            {
+              $pull: {
+                likes: authData._id,
+              },
+            },
+            function (err) {
+              if (err) return next(err);
+              res.json({
+                message: `A like has succesfully been removed from a post called ${results.post.title}`,
+              });
+            }
+          );
+        }
+      );
+    }
+  });
+};

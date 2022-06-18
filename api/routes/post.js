@@ -7,6 +7,8 @@ const {
   post_delete,
   post_update,
   post_get_single,
+  post_like_add,
+  post_like_remove,
 } = require('../controllers/postController');
 const {
   comment_create,
@@ -28,6 +30,10 @@ router.put('/:id', verifyToken, post_update);
 router.post('/:id/comment/', verifyToken, comment_create);
 
 router.delete('/:postid/comment/:commentid', verifyToken, comment_delete);
+
+router.post('/like/:id', verifyToken, post_like_add);
+
+router.delete('/like/:id', verifyToken, post_like_remove);
 
 function verifyToken(req, res, next) {
   const bearerHeader = req.headers['authorization'];
