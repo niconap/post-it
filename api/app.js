@@ -16,6 +16,7 @@ const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
 const postRouter = require('./routes/post');
+const cors = require('cors');
 
 var User = require('./models/user');
 
@@ -90,6 +91,7 @@ app.use(
   })
 );
 app.use(passport.session());
+app.use(cors());
 
 app.use('/api', indexRouter);
 app.use('/api/auth', authRouter);
