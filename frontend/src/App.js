@@ -3,7 +3,9 @@ import Login from './Login';
 import Signup from './Signup';
 
 export default function App() {
-  if (localStorage.getItem('token')) {
+  console.log(localStorage.getItem('token'));
+  if (localStorage.getItem('token') != null) {
+    return 'logged in';
   } else {
     return (
       <BrowserRouter>

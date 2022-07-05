@@ -28,6 +28,7 @@ function Login() {
         setPassword('');
         localStorage.setItem('token', resJson.token);
         navigate('../', { replace: true });
+        window.location.reload();
       } else {
         setMessage(resJson.info.message);
       }
