@@ -37,7 +37,7 @@ function Login() {
 
   return (
     <div id="login">
-      <form onSubmit={handleSubmit} method="get" name="login">
+      <form onSubmit={handleSubmit} name="login">
         <input
           type="text"
           value={username}
