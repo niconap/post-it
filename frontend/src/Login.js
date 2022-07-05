@@ -5,10 +5,10 @@ function Login() {
   let navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
 
   let handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(username, password);
     try {
       let res = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
@@ -27,6 +27,8 @@ function Login() {
         setPassword('');
         localStorage.setItem('token', resJson.token);
         navigate('../', { replace: true });
+      } else {
+        setMessage(resJson.info.message);
       }
     } catch (err) {
       console.log(err);
@@ -51,6 +53,7 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <input type="submit" value="Log in" />
+        <span id="message">{message}</span>
       </form>
       <p>
         Don't have an account? Sign up <a href="signup">here</a>
