@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Login() {
   let navigate = useNavigate();
+  const signup = window.location.search.split('=')[1];
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -37,6 +38,9 @@ function Login() {
 
   return (
     <div id="login">
+      {signup ? (
+        <p>You successfully created an account, please log in to continue</p>
+      ) : null}
       <form onSubmit={handleSubmit} name="login">
         <input
           type="text"

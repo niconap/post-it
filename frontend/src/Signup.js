@@ -36,7 +36,7 @@ function Signup() {
         setEmail('');
         setUsername('');
         setPassword('');
-        navigate('../', { replace: true });
+        navigate('../?signup=true', { replace: true });
       } else {
         setErrors(resJson.errors);
       }
