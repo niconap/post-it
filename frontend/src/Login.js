@@ -26,7 +26,7 @@ function Login() {
       if (resJson.token) {
         setUsername('');
         setPassword('');
-        localStorage.setItem('token', resJson.token);
+        localStorage.setItem('token', `Bearer ${resJson.token}`);
         navigate('../', { replace: true });
         window.location.reload();
       } else {
