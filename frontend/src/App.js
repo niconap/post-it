@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './Login';
 import Signup from './Signup';
+import Feed from './Feed';
 
 export default function App() {
-  console.log(localStorage.getItem('token'));
   if (localStorage.getItem('token') != null) {
-    return 'logged in';
+    return <Feed />;
   } else {
     return (
       <BrowserRouter>
