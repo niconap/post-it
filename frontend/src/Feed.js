@@ -54,6 +54,10 @@ function Feed() {
           <span class="slider"></span>
         </label>
         <span> General</span>
+        <i
+          title="Switch between general posts and your friend's posts"
+          className="gg-info"
+        ></i>
         {mode === 'general'
           ? generalPosts.map((post) => {
               let date = new Date(post.timeStamp);
