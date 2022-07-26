@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import uniqid from 'uniqid';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 
 function Feed() {
   const [mode, setMode] = useState('general');
@@ -49,7 +51,6 @@ function Feed() {
               } else {
                 setMode('friends');
               }
-              console.log(mode);
             }}
           />
           <span class="slider"></span>
@@ -77,8 +78,16 @@ function Feed() {
                   </span>
                   <div className="likes">
                     {post.likes.length === 1
-                      ? '1 like'
-                      : `${post.likes.length} likes`}
+                      ? 'Liked by 1 person'
+                      : `Liked by ${post.likes.length} people`}
+                  </div>
+                  <div className="buttons">
+                    <div className="like">
+                      <FavoriteBorderOutlinedIcon fontSize="small" />
+                    </div>
+                    <div className="comment">
+                      <ModeCommentOutlinedIcon fontSize="small" />
+                    </div>
                   </div>
                 </div>
               );

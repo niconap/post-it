@@ -67,8 +67,24 @@ input:checked + .slider:before {
 
 #info-icon:hover::after {
   content: "Pick between general posts and your friend's posts";
-  border: 1px solid gray;
+  border: 1px solid rgb(155, 155, 155);
   border-radius: 5px;
   padding: 3px;
-  box-shadow: gray 0px 0px 3px;
+  box-shadow: rgb(143, 143, 143) 0px 0px 3px;
+}
+
+.like, .comment {
+  width: 4rem;
+  display: inline-block;
+  text-align: center;
+  padding: 0.3rem;
+}
+
+.like:hover, .comment:hover {
+  background-color: rgb(240, 240, 240);
+  cursor: pointer;
+}
+
+.like:hover {
+  color: rgb(255, 73, 73)
 }
