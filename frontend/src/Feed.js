@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Post from './Post';
 import uniqid from 'uniqid';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
@@ -53,7 +54,7 @@ function Feed() {
               }
             }}
           />
-          <span class="slider"></span>
+          <span className="slider"></span>
         </label>
         <span> General</span>
         <div id="info-icon">
@@ -61,60 +62,14 @@ function Feed() {
         </div>
         {mode === 'general'
           ? generalPosts.map((post) => {
+              // friend's posts
               let date = new Date(post.timeStamp);
-              return (
-                <div key={uniqid()} className="post">
-                  <h3>{post.title}</h3>
-                  <p>{post.content}</p>
-                  <span>
-                    Written by: {post.user.firstName} ({post.user.username}) on{' '}
-                    {date.toLocaleDateString(undefined, {
-                      day: 'numeric',
-                      month: 'long',
-                      year: 'numeric',
-                      hour: 'numeric',
-                      minute: 'numeric',
-                    })}
-                  </span>
-                  <div className="likes">
-                    {post.likes.length === 1
-                      ? 'Liked by 1 person'
-                      : `Liked by ${post.likes.length} people`}
-                  </div>
-                  <div className="buttons">
-                    <div className="like">
-                      <FavoriteBorderOutlinedIcon fontSize="small" />
-                    </div>
-                    <div className="comment">
-                      <ModeCommentOutlinedIcon fontSize="small" />
-                    </div>
-                  </div>
-                </div>
-              );
+              return <Post key={uniqid()} date={date} post={post} />;
             })
           : friendPosts.map((post) => {
+              // general posts
               let date = new Date(post.timeStamp);
-              return (
-                <div key={uniqid()} className="post">
-                  <h3>{post.title}</h3>
-                  <p>{post.content}</p>
-                  <span>
-                    Written by: {post.user.firstName} ({post.user.username}) on{' '}
-                    {date.toLocaleDateString(undefined, {
-                      day: 'numeric',
-                      month: 'long',
-                      year: 'numeric',
-                      hour: 'numeric',
-                      minute: 'numeric',
-                    })}
-                  </span>
-                  <div className="likes">
-                    {post.likes.length === 1
-                      ? '1 like'
-                      : `${post.likes.length} likes`}
-                  </div>
-                </div>
-              );
+              return <Post key={uniqid()} date={date} post={post} />;
             })}
       </div>
     );
