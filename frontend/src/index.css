@@ -88,3 +88,28 @@ input:checked + .slider:before {
 .like:hover {
   color: rgb(255, 73, 73)
 }
+
+#nav {
+  background-color: rgb(118, 164, 250);
+}
+
+#logout, #maintitle {
+  display: inline-block;
+  margin: 1.3rem;
+  color: rgb(255, 255, 255);
+}
+
+#logout {
+  float: right;
+  margin-top: 30px;
+}
+
+a {
+  color: rgb(118, 164, 250);
+  text-decoration: none;
+}
+
+#logout:hover, a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
