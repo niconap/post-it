@@ -5,7 +5,7 @@ import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 
 function Post(props) {
-  const [post, setPost] = useState(props.post);
+  const post = props.post;
 
   const checkLike = () => {
     return post.likes.includes(localStorage.getItem('user'));
@@ -14,51 +14,33 @@ function Post(props) {
   const handleLike = async () => {
     if (checkLike()) {
       try {
-        let res = await fetch(
-          `http://localhost:5000/api/post/like/${post._id}`,
-          {
-            method: 'DELETE',
-            mode: 'cors',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: localStorage.getItem('token'),
-            },
-          }
-        );
+        await fetch(`http://localhost:5000/api/post/like/${post._id}`, {
+          method: 'DELETE',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: localStorage.getItem('token'),
+          },
+        });
       } catch (err) {
         console.log(err);
       }
     } else {
       try {
-        let res = await fetch(
-          `http://localhost:5000/api/post/like/${post._id}`,
-          {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: localStorage.getItem('token'),
-            },
-          }
-        );
+        await fetch(`http://localhost:5000/api/post/like/${post._id}`, {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: localStorage.getItem('token'),
+          },
+        });
       } catch (err) {
         console.log(err);
       }
     }
-    try {
-      let res = await fetch(`http://localhost:5000/api/post/${post._id}`, {
-        method: 'GET',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: localStorage.getItem('token'),
-        },
-      });
-      let resJson = await res.json();
-      setPost(resJson);
-    } catch (err) {
-      console.log(err);
-    }
+    props.fetchPosts('http://localhost:5000/api/post/general', 'general');
+    props.fetchPosts('http://localhost:5000/api/post/friends', 'friends');
   };
 
   return (

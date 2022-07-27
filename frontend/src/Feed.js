@@ -62,12 +62,28 @@ function Feed() {
           ? generalPosts.map((post) => {
               // friend's posts
               let date = new Date(post.timeStamp);
-              return <Post key={uniqid()} date={date} post={post} />;
+              return (
+                <Post
+                  key={uniqid()}
+                  fetchPosts={fetchPosts}
+                  date={date}
+                  post={post}
+                  mode={mode}
+                />
+              );
             })
           : friendPosts.map((post) => {
               // general posts
               let date = new Date(post.timeStamp);
-              return <Post key={uniqid()} date={date} post={post} />;
+              return (
+                <Post
+                  key={uniqid()}
+                  fetchPosts={fetchPosts}
+                  date={date}
+                  post={post}
+                  mode={mode}
+                />
+              );
             })}
       </div>
     );
