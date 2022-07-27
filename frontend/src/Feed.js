@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import Post from './Post';
 import uniqid from 'uniqid';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 
 function Feed() {
   const [mode, setMode] = useState('general');

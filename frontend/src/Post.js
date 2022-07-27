@@ -1,16 +1,72 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import uniqid from 'uniqid';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
+import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
 
 function Post(props) {
+  const [post, setPost] = useState(props.post);
+
+  const checkLike = () => {
+    return post.likes.includes(localStorage.getItem('user'));
+  };
+
+  const handleLike = async () => {
+    if (checkLike()) {
+      try {
+        let res = await fetch(
+          `http://localhost:5000/api/post/like/${post._id}`,
+          {
+            method: 'DELETE',
+            mode: 'cors',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: localStorage.getItem('token'),
+            },
+          }
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      try {
+        let res = await fetch(
+          `http://localhost:5000/api/post/like/${post._id}`,
+          {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: localStorage.getItem('token'),
+            },
+          }
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    try {
+      let res = await fetch(`http://localhost:5000/api/post/${post._id}`, {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('token'),
+        },
+      });
+      let resJson = await res.json();
+      setPost(resJson);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div key={uniqid()} className="post">
-      <h3>{props.post.title}</h3>
-      <p>{props.post.content}</p>
+      <h3>{post.title}</h3>
+      <p>{post.content}</p>
       <span>
-        Written by: {props.post.user.firstName} ({props.post.user.username}) on{' '}
+        Written by: {post.user.firstName} ({post.user.username}) on{' '}
         {props.date.toLocaleDateString(undefined, {
           day: 'numeric',
           month: 'long',
@@ -20,13 +76,20 @@ function Post(props) {
         })}
       </span>
       <div className="likes">
-        {props.post.likes.length === 1
+        {post.likes.length === 1
           ? 'Liked by 1 person'
-          : `Liked by ${props.post.likes.length} people`}
+          : `Liked by ${post.likes.length} people`}
       </div>
       <div className="buttons">
-        <div className="like">
-          <FavoriteBorderOutlinedIcon fontSize="small" />
+        <div className="like" onClick={handleLike}>
+          {checkLike() ? (
+            <FavoriteOutlinedIcon
+              fontSize="small"
+              sx={{ color: 'rgb(255, 73, 73)' }}
+            />
+          ) : (
+            <FavoriteBorderOutlinedIcon fontSize="small" />
+          )}
         </div>
         <div className="comment">
           <ModeCommentOutlinedIcon fontSize="small" />
