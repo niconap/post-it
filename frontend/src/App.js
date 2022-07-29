@@ -4,14 +4,18 @@ import Signup from './Signup';
 import Feed from './Feed';
 import Nav from './Nav';
 import React from 'react';
+import PostPage from './PostPage';
 
 export default function App() {
   if (localStorage.getItem('token') != null) {
     return (
-      <React.StrictMode>
+      <BrowserRouter>
         <Nav />
-        <Feed />
-      </React.StrictMode>
+        <Routes>
+          <Route path="*" element={<Feed />} />
+          <Route path="/post" element={<PostPage />} />
+        </Routes>
+      </BrowserRouter>
     );
   } else {
     return (

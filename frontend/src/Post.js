@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import uniqid from 'uniqid';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
+import { NavLink } from 'react-router-dom';
 
 function Post(props) {
   const post = props.post;
@@ -73,8 +73,10 @@ function Post(props) {
             <FavoriteBorderOutlinedIcon fontSize="small" />
           )}
         </div>
-        <div className="comment">
-          <ModeCommentOutlinedIcon fontSize="small" />
+        <div className="commentButton">
+          <NavLink to={`/post?id=${post._id}`}>
+            <ModeCommentOutlinedIcon fontSize="small" />
+          </NavLink>
         </div>
       </div>
     </div>

@@ -73,14 +73,14 @@ input:checked + .slider:before {
   box-shadow: rgb(143, 143, 143) 0px 0px 3px;
 }
 
-.like, .comment {
+.like, .commentButton {
   width: 4rem;
   display: inline-block;
   text-align: center;
   padding: 0.3rem;
 }
 
-.like:hover, .comment:hover {
+.like:hover, .commentButton:hover {
   background-color: rgb(240, 240, 240);
   cursor: pointer;
 }
@@ -112,4 +112,13 @@ a {
 #logout:hover, a:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+
+.comment {
+  display: block;
+  margin: 1rem;
+}
+
+.comment span {
+  margin-right: 0.5rem;
 }
