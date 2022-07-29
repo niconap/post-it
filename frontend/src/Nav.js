@@ -6,7 +6,9 @@ function Nav() {
 
   return (
     <div id="nav">
-      <h1 id="maintitle">Odinbook</h1>
+      <a href="/">
+        <h1 id="maintitle">Odinbook</h1>'
+      </a>
       <span id="logout" onClick={logOut}>
         Log out
       </span>
