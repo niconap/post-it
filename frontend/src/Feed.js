@@ -40,7 +40,7 @@ function Feed() {
   if (isLoaded) {
     return (
       <div id="container">
-        <span>Friends </span>
+        <span>General </span>
         <label className="switch">
           <input
             type="checkbox"
@@ -54,13 +54,12 @@ function Feed() {
           />
           <span className="slider"></span>
         </label>
-        <span> General</span>
+        <span> Friends</span>
         <div id="info-icon">
           <InfoOutlinedIcon fontSize="small" sx={{ color: 'gray' }} />
         </div>
         {mode === 'general'
           ? generalPosts.map((post) => {
-              // friend's posts
               let date = new Date(post.timeStamp);
               return (
                 <Post
