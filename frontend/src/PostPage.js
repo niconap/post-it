@@ -109,7 +109,16 @@ function PostPage() {
           <div id="comments">
             <h3>Comments:</h3>
             {post.comments.map((comment) => {
-              return <Comment key={uniqid()} comment={comment} />;
+              let date = new Date(comment.timeStamp);
+              comment.date = date;
+              return (
+                <Comment
+                  key={uniqid()}
+                  getPost={getPost}
+                  post={searchParams.get('id')}
+                  comment={comment}
+                />
+              );
             })}
           </div>
         </div>

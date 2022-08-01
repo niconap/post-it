@@ -1,3 +1,6 @@
+* {
+  outline: none;
+}
 
 body {
   margin: 0;
@@ -65,7 +68,7 @@ input:checked + .slider:before {
   left: 2px;
 }
 
-#info-icon:hover::after {
+#info-icon:hover::after, .confirmation {
   content: "Pick between general posts and your friend's posts";
   border: 1px solid rgb(155, 155, 155);
   border-radius: 5px;
@@ -73,20 +76,67 @@ input:checked + .slider:before {
   box-shadow: rgb(143, 143, 143) 0px 0px 3px;
 }
 
-.like, .commentButton {
+input[type="text"], input[type="password"] {
+  height: 1.5rem;
+  border: none;
+  background-color: rgb(240, 240, 240);
+  border-radius: 6px;
+  margin: 0px 0.5rem 0px 0.5rem;
+  padding: 0.2rem;
+  width: 15rem;
+}
+
+input[type="text"], input[type="password"]:focus {
+  background-color: rgb(235, 235, 235);
+}
+
+.confirmation {
+  margin-left: 0.3rem;
+}
+
+.like, .commentButton, .delete, input[type="submit"] {
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255);
+  border: none;
   width: 4rem;
+  height: 1.5rem;
   display: inline-block;
   text-align: center;
   padding: 0.3rem;
+  transition: color 0.2s ease, background-color 0.2s ease;
 }
 
-.like:hover, .commentButton:hover {
+.like:hover, .commentButton:hover, .delete:hover, input[type="submit"]:hover {
   background-color: rgb(240, 240, 240);
   cursor: pointer;
 }
 
-.like:hover {
-  color: rgb(255, 73, 73)
+.like:hover, .delete:hover {
+  color: rgb(255, 73, 73);
+  transition: color 0.2s ease;
+}
+
+.commentButton a {
+  color: black;
+}
+
+.content {
+  display: inline-block;
+  width: 15rem;
+}
+
+.commentButton:hover a {
+  color: rgb(118, 164, 250);
+}
+
+.commentdate {
+  display: block;
+  color: rgb(150, 150, 150);
+  font-size: 0.8rem;
+}
+
+input[type="submit"]:active {
+  background-color: rgb(235, 235, 235);
 }
 
 #nav {

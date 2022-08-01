@@ -19,19 +19,6 @@ function CommentForm(props) {
       });
       props.getPost();
     } catch (err) {
-      <div id="commentinput">
-        <form name="comment" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Type a comment..."
-            value={commentContent}
-            onChange={(e) => {
-              setCommentContent(e.target.value);
-            }}
-          />
-          <input type="submit" value="Post" />
-        </form>
-      </div>;
       console.log(err);
     }
   };
@@ -47,7 +34,7 @@ function CommentForm(props) {
             setCommentContent(e.target.value);
           }}
         />
-        <input type="submit" value="Post" />
+        <input type="submit" value="Post" className="submit" />
       </form>
     </div>
   );
