@@ -8,11 +8,13 @@ function Nav() {
 
   return (
     <div id="nav">
-      <a href="/">
+      <NavLink to="/">
         <h1 id="maintitle">Odinbook</h1>
-      </a>
+      </NavLink>
       <div id="navlinks">
-        <NavLink to="/profile">My profile</NavLink>
+        <NavLink to={'/profile?id=' + localStorage.getItem('user')}>
+          My profile
+        </NavLink>
         <span id="logout" onClick={logOut}>
           Log out
         </span>
