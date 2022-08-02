@@ -68,8 +68,7 @@ function Post(props) {
         console.log(err);
       }
     }
-    props.fetchPosts('http://localhost:5000/api/post/general', 'general');
-    props.fetchPosts('http://localhost:5000/api/post/friends', 'friends');
+    props.fetchPosts();
   };
 
   return (
