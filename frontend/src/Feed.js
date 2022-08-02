@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Post from './Post';
 import uniqid from 'uniqid';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import PostForm from './PostForm';
 
 function Feed() {
   const [mode, setMode] = useState('general');
@@ -58,6 +59,7 @@ function Feed() {
         <div id="info-icon">
           <InfoOutlinedIcon fontSize="small" sx={{ color: 'gray' }} />
         </div>
+        <PostForm />
         {mode === 'general'
           ? generalPosts.map((post) => {
               let date = new Date(post.timeStamp);
