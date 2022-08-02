@@ -80,6 +80,7 @@ exports.get_current_user = function (req, res, next) {
       if (user == null) {
         res.sendStatus(404);
       } else {
+        user.password = null;
         res.json({ user });
       }
     });
