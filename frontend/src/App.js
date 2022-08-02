@@ -5,6 +5,7 @@ import Feed from './Feed';
 import Nav from './Nav';
 import React from 'react';
 import PostPage from './PostPage';
+import Profile from './Profile';
 
 export default function App() {
   if (localStorage.getItem('token') != null) {
@@ -12,8 +13,9 @@ export default function App() {
       <BrowserRouter>
         <Nav />
         <Routes>
-          <Route path="*" element={<Feed />} />
+          <Route exact path="/profile" element={<Profile />} />
           <Route path="/post" element={<PostPage />} />
+          <Route path="*" element={<Feed />} />
         </Routes>
       </BrowserRouter>
     );

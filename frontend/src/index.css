@@ -143,15 +143,23 @@ input[type="submit"]:active {
   background-color: rgb(118, 164, 250);
 }
 
-#logout, #maintitle {
+#maintitle {
   display: inline-block;
   margin: 1.3rem;
   color: rgb(255, 255, 255);
 }
 
-#logout {
+#navlinks {
   float: right;
-  margin-top: 30px;
+  padding: 2rem;
+}
+
+#navlinks span, #navlinks a {
+  margin: 1.3rem;
+}
+
+#nav a, #logout {
+  color: rgb(255, 255, 255);
 }
 
 a {
