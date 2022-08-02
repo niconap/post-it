@@ -76,7 +76,7 @@ input:checked + .slider:before {
   box-shadow: rgb(143, 143, 143) 0px 0px 3px;
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"], input[type="email"] {
   height: 1.5rem;
   border: none;
   background-color: rgb(240, 240, 240);
@@ -86,7 +86,7 @@ input[type="text"], input[type="password"] {
   width: 15rem;
 }
 
-input[type="text"], input[type="password"]:focus {
+input[type="text"], input[type="password"]:focus, input[type="email"]:focus {
   background-color: rgb(235, 235, 235);
 }
 
@@ -94,19 +94,19 @@ input[type="text"], input[type="password"]:focus {
   margin-left: 0.3rem;
 }
 
-.like, .commentButton, .delete, input[type="submit"] {
+.like, .commentButton, .delete, input[type="submit"], button {
   border-radius: 6px;
   background-color: rgba(255, 255, 255);
   border: none;
   width: 4rem;
-  height: 1.5rem;
+  height: fit-content;
   display: inline-block;
   text-align: center;
   padding: 0.3rem;
   transition: color 0.2s ease, background-color 0.2s ease;
 }
 
-.like:hover, .commentButton:hover, .delete:hover, input[type="submit"]:hover {
+.like:hover, .commentButton:hover, .delete:hover, input[type="submit"]:hover, button:hover {
   background-color: rgb(240, 240, 240);
   cursor: pointer;
 }
@@ -135,8 +135,8 @@ input[type="text"], input[type="password"]:focus {
   font-size: 0.8rem;
 }
 
-input[type="submit"]:active {
-  background-color: rgb(235, 235, 235);
+input[type="submit"]:active, button:active {
+  background-color: rgb(220, 220, 220);
 }
 
 #nav {
