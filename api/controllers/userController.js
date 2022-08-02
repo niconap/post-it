@@ -69,22 +69,27 @@ exports.signup_user = [
   },
 ];
 
-exports.get_current_user = function (req, res, next) {
-  jwt.verify(req.token, process.env.SESSION_SECRET, (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-      return;
-    }
-    User.findById(authData._id, function (err, user) {
+exports.get_user = function (req, res, next) {
+  async.parallel(
+    {
+      user: function (callback) {
+        User.findById(req.params.id)
+          .populate('friends')
+          .populate('requests')
+          .populate('posts')
+          .exec(callback);
+      },
+    },
+    function (err, results) {
       if (err) return next(err);
-      if (user == null) {
+      if (results.user == null) {
         res.sendStatus(404);
-      } else {
-        user.password = null;
-        res.json({ user });
+        return;
       }
-    });
-  });
+      results.user.password = null;
+      res.json(results.user);
+    }
+  );
 };
 
 exports.delete_user = function (req, res, next) {
@@ -240,19 +245,3 @@ exports.update_user = [
     );
   },
 ];
-
-exports.get_users = function (req, res, next) {
-  async.parallel(
-    {
-      users: function (callback) {
-        User.find()
-          .select('username firstName lastName friends requests')
-          .exec(callback);
-      },
-    },
-    function (err, results) {
-      if (err) return next(err);
-      res.json(results.users);
-    }
-  );
-};
