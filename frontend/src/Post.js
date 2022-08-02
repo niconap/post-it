@@ -2,13 +2,42 @@ import uniqid from 'uniqid';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import FavoriteOutlinedIcon from '@mui/icons-material/FavoriteOutlined';
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
 
 function Post(props) {
   const post = props.post;
+  const [deletePressed, setDeletePressed] = useState(false);
 
   const checkLike = () => {
     return post.likes.includes(localStorage.getItem('user'));
+  };
+
+  const handleClick = () => {
+    if (!deletePressed) {
+      setDeletePressed(true);
+      setTimeout(() => setDeletePressed(false), 3000);
+    } else {
+      handleDelete();
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await fetch(`http://localhost:5000/api/post/${post._id}`, {
+        method: 'DELETE',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('token'),
+        },
+      });
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleLike = async () => {
@@ -78,6 +107,22 @@ function Post(props) {
             <ModeCommentOutlinedIcon fontSize="small" />
           </NavLink>
         </div>
+        {post.user._id === localStorage.getItem('user') ? (
+          <div className="delete" onClick={handleClick}>
+            {deletePressed ? (
+              <DeleteForeverOutlinedIcon />
+            ) : (
+              <DeleteOutlinedIcon />
+            )}
+          </div>
+        ) : (
+          ''
+        )}
+        {deletePressed ? (
+          <span className="confirmation"> Click again to confirm</span>
+        ) : (
+          ''
+        )}
       </div>
     </div>
   );
