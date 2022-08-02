@@ -10,9 +10,9 @@ function Feed() {
   const [friendPosts, setFriendPosts] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const fetchPosts = async (url, type) => {
+  const fetchPosts = async () => {
     try {
-      let res = await fetch(url, {
+      let res = await fetch('http://localhost:5000/api/post/friends', {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -21,21 +21,29 @@ function Feed() {
         },
       });
       let resJson = await res.json();
-      if (type === 'general') {
-        setGeneralPosts(resJson.posts);
-      }
-      if (type === 'friends') {
-        setFriendPosts(resJson.posts);
-      }
-      setIsLoaded(true);
+      setFriendPosts(resJson.posts);
     } catch (err) {
       console.log(err);
     }
+    try {
+      let res = await fetch('http://localhost:5000/api/post/general', {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('token'),
+        },
+      });
+      let resJson = await res.json();
+      setGeneralPosts(resJson.posts);
+    } catch (err) {
+      console.log(err);
+    }
+    setIsLoaded(true);
   };
 
   useEffect(() => {
-    fetchPosts('http://localhost:5000/api/post/friends', 'friends');
-    fetchPosts('http://localhost:5000/api/post/general', 'general');
+    fetchPosts();
   }, []);
 
   if (isLoaded) {

@@ -34,7 +34,7 @@ function Post(props) {
           Authorization: localStorage.getItem('token'),
         },
       });
-      window.location.reload();
+      props.fetchPosts();
     } catch (err) {
       console.log(err);
     }
