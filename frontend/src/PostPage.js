@@ -112,18 +112,21 @@ function PostPage() {
           <CommentForm postId={post._id} getPost={getPost} />
           <div id="comments">
             <h3>Comments:</h3>
-            {post.comments.map((comment) => {
-              let date = new Date(comment.timeStamp);
-              comment.date = date;
-              return (
-                <Comment
-                  key={uniqid()}
-                  getPost={getPost}
-                  post={searchParams.get('id')}
-                  comment={comment}
-                />
-              );
-            })}
+            {post.comments
+              .slice(0)
+              .reverse()
+              .map((comment) => {
+                let date = new Date(comment.timeStamp);
+                comment.date = date;
+                return (
+                  <Comment
+                    key={uniqid()}
+                    getPost={getPost}
+                    post={searchParams.get('id')}
+                    comment={comment}
+                  />
+                );
+              })}
           </div>
         </div>
       </div>
