@@ -33,17 +33,20 @@ function Profile() {
       <h3>{user.username}</h3>
       <button>Add friend</button>
       {user.posts && user.posts.length !== 0 ? (
-        user.posts.map((post) => {
-          let date = new Date(post.timeStamp);
-          return (
-            <Post
-              key={uniqid()}
-              fetchPosts={fetchUserData}
-              date={date}
-              post={post}
-            />
-          );
-        })
+        user.posts
+          .slice(0)
+          .reverse()
+          .map((post) => {
+            let date = new Date(post.timeStamp);
+            return (
+              <Post
+                key={uniqid()}
+                fetchPosts={fetchUserData}
+                date={date}
+                post={post}
+              />
+            );
+          })
       ) : (
         <p>{user.firstName} hasn't published any posts yet.</p>
       )}

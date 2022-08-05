@@ -69,30 +69,36 @@ function Feed() {
         </div>
         <PostForm />
         {mode === 'general'
-          ? generalPosts.map((post) => {
-              let date = new Date(post.timeStamp);
-              return (
-                <Post
-                  key={uniqid()}
-                  fetchPosts={fetchPosts}
-                  date={date}
-                  post={post}
-                  mode={mode}
-                />
-              );
-            })
-          : friendPosts.map((post) => {
-              let date = new Date(post.timeStamp);
-              return (
-                <Post
-                  key={uniqid()}
-                  fetchPosts={fetchPosts}
-                  date={date}
-                  post={post}
-                  mode={mode}
-                />
-              );
-            })}
+          ? generalPosts
+              .slice(0)
+              .reverse()
+              .map((post) => {
+                let date = new Date(post.timeStamp);
+                return (
+                  <Post
+                    key={uniqid()}
+                    fetchPosts={fetchPosts}
+                    date={date}
+                    post={post}
+                    mode={mode}
+                  />
+                );
+              })
+          : friendPosts
+              .slice(0)
+              .reverse()
+              .map((post) => {
+                let date = new Date(post.timeStamp);
+                return (
+                  <Post
+                    key={uniqid()}
+                    fetchPosts={fetchPosts}
+                    date={date}
+                    post={post}
+                    mode={mode}
+                  />
+                );
+              })}
       </div>
     );
   } else {
