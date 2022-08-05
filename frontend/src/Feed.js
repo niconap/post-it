@@ -82,7 +82,6 @@ function Feed() {
               );
             })
           : friendPosts.map((post) => {
-              // general posts
               let date = new Date(post.timeStamp);
               return (
                 <Post
