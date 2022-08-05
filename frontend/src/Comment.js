@@ -1,6 +1,7 @@
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 function Comment(props) {
   const [deletePressed, setDeletePressed] = useState(false);
@@ -36,7 +37,12 @@ function Comment(props) {
   return (
     <div className="comment">
       <div className="content">
-        <span>{props.comment.username}:</span>
+        <span>
+          <NavLink to={`/profile?id=${props.comment.user}`}>
+            {props.comment.username}
+          </NavLink>
+          :
+        </span>
         <span>{props.comment.content}</span>
         <span className="commentdate">
           Posted on{' '}

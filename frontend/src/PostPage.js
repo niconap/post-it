@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, NavLink } from 'react-router-dom';
 import CommentForm from './CommentForm';
 import Comment from './Comment';
 import uniqid from 'uniqid';
@@ -78,7 +78,11 @@ function PostPage() {
         <h2>{post.title}</h2>
         <p>{post.content}</p>
         <span>
-          Written by: {post.user.firstName} ({post.user.username}) on{' '}
+          Written by: {post.user.firstName} (
+          <NavLink to={`/profile?id=${post.user._id}`}>
+            {post.user.username}
+          </NavLink>
+          ) on{' '}
           {date.toLocaleDateString(undefined, {
             day: 'numeric',
             month: 'long',

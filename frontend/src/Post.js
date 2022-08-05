@@ -76,7 +76,11 @@ function Post(props) {
       <h3>{post.title}</h3>
       <p>{post.content}</p>
       <span>
-        Written by: {post.user.firstName} ({post.user.username}) on{' '}
+        Written by: {post.user.firstName} (
+        <NavLink to={`/profile?id=${post.user._id}`}>
+          {post.user.username}
+        </NavLink>
+        ) on{' '}
         {props.date.toLocaleDateString(undefined, {
           day: 'numeric',
           month: 'long',
