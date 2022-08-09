@@ -84,6 +84,7 @@ function Profile() {
     let isFriend = user.friends.filter((friend) => {
       return friend._id === localStorage.getItem('user');
     });
+    console.log(user.friends);
 
     return (
       <div id="profile">
@@ -107,24 +108,39 @@ function Profile() {
         ) : (
           ''
         )}
-        {user.posts && user.posts.length !== 0 ? (
-          user.posts
-            .slice(0)
-            .reverse()
-            .map((post) => {
-              let date = new Date(post.timeStamp);
+        <div className="posts">
+          {user.posts && user.posts.length !== 0 ? (
+            user.posts
+              .slice(0)
+              .reverse()
+              .map((post) => {
+                let date = new Date(post.timeStamp);
+                return (
+                  <Post
+                    key={uniqid()}
+                    fetchPosts={fetchUserData}
+                    date={date}
+                    post={post}
+                  />
+                );
+              })
+          ) : (
+            <p>{user.firstName} hasn't published any posts yet.</p>
+          )}
+        </div>
+        <div id="friends">
+          <h3>Friends list</h3>
+          <ul>
+            {user.friends.map((friend) => {
               return (
-                <Post
-                  key={uniqid()}
-                  fetchPosts={fetchUserData}
-                  date={date}
-                  post={post}
-                />
+                <li key={uniqid()}>
+                  {friend.firstName} (
+                  {<a href={`/profile?id=${friend._id}`}>{friend.username}</a>})
+                </li>
               );
-            })
-        ) : (
-          <p>{user.firstName} hasn't published any posts yet.</p>
-        )}
+            })}
+          </ul>
+        </div>
       </div>
     );
   } else {
