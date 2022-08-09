@@ -75,7 +75,6 @@ exports.get_user = function (req, res, next) {
       user: function (callback) {
         User.findById(req.params.id)
           .populate('friends')
-          .populate('requests')
           .populate('posts')
           .exec(callback);
       },

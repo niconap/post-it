@@ -13,11 +13,15 @@ const {
 
 router.get('/:id', get_user);
 
+// Create route for getting requests
+
 router.delete('/:id', verifyToken, delete_user);
 
 router.put('/:id', verifyToken, update_user);
 
 router.put('/friend/request/:id', verifyToken, friend_request_user);
+
+// Create route to unsend a request
 
 router.put('/friend/accept/:id', verifyToken, friend_accept_user);
 

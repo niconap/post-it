@@ -5,6 +5,7 @@ import uniqid from 'uniqid';
 
 function Profile() {
   const [searchParams] = useSearchParams();
+  const [isLoaded, setIsLoaded] = useState(false);
   const [user, setUser] = useState('');
 
   const fetchUserData = async () => {
@@ -21,37 +22,69 @@ function Profile() {
     );
     let resJson = await res.json();
     setUser(resJson);
+    setIsLoaded(true);
   };
 
   useEffect(() => {
     fetchUserData();
   }, []);
 
-  return (
-    <div id="profile">
-      <h1>{user.firstName + ' ' + user.lastName}</h1>
-      <h3>{user.username}</h3>
-      <button>Add friend</button>
-      {user.posts && user.posts.length !== 0 ? (
-        user.posts
-          .slice(0)
-          .reverse()
-          .map((post) => {
-            let date = new Date(post.timeStamp);
-            return (
-              <Post
-                key={uniqid()}
-                fetchPosts={fetchUserData}
-                date={date}
-                post={post}
-              />
-            );
-          })
-      ) : (
-        <p>{user.firstName} hasn't published any posts yet.</p>
-      )}
-    </div>
-  );
+  const handleFriendRequest = async () => {
+    try {
+      await fetch(`http://localhost:5000/api/user/friend/request/${user._id}`, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('token'),
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  if (isLoaded) {
+    return (
+      <div id="profile">
+        {console.log(user)}
+        <h1>{user.firstName + ' ' + user.lastName}</h1>
+        <h3>{user.username}</h3>
+        {user._id === localStorage.getItem('user') ||
+        user.requests.indexOf(localStorage.getItem('token')) ? (
+          ''
+        ) : (
+          <button onClick={handleFriendRequest}>Add friend</button>
+        )}
+        {user._id !== localStorage.getItem('user') &&
+        user.requests.indexOf(localStorage.getItem('token')) ? (
+          <button>Revoke request</button>
+        ) : (
+          ''
+        )}
+        {user.posts && user.posts.length !== 0 ? (
+          user.posts
+            .slice(0)
+            .reverse()
+            .map((post) => {
+              let date = new Date(post.timeStamp);
+              return (
+                <Post
+                  key={uniqid()}
+                  fetchPosts={fetchUserData}
+                  date={date}
+                  post={post}
+                />
+              );
+            })
+        ) : (
+          <p>{user.firstName} hasn't published any posts yet.</p>
+        )}
+      </div>
+    );
+  } else {
+    return 'Loading...';
+  }
 }
 
 export default Profile;
