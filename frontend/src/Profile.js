@@ -64,13 +64,34 @@ function Profile() {
     }
   };
 
+  const handleRemoveFriend = async () => {
+    try {
+      await fetch(`http://localhost:5000/api/user/friend/remove/${user._id}/`, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('token'),
+        },
+      });
+      fetchUserData();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   if (isLoaded) {
+    let isFriend = user.friends.filter((friend) => {
+      return friend._id === localStorage.getItem('user');
+    });
+
     return (
       <div id="profile">
         <h1>{user.firstName + ' ' + user.lastName}</h1>
         <h3>{user.username}</h3>
         {user._id === localStorage.getItem('user') ||
-        user.requests.indexOf(localStorage.getItem('user')) >= 0 ? (
+        user.requests.indexOf(localStorage.getItem('user')) >= 0 ||
+        isFriend.length > 0 ? (
           ''
         ) : (
           <button onClick={handleFriendRequest}>Add friend</button>
@@ -78,6 +99,11 @@ function Profile() {
         {user._id !== localStorage.getItem('user') &&
         user.requests.indexOf(localStorage.getItem('user')) >= 0 ? (
           <button onClick={handleRevokeRequest}>Revoke request</button>
+        ) : (
+          ''
+        )}
+        {isFriend.length > 0 ? (
+          <button onClick={handleRemoveFriend}>Remove friend</button>
         ) : (
           ''
         )}

@@ -158,11 +158,23 @@ exports.friend_remove = [
         }
         if (
           results.removedUser._id == req.authData._id ||
-          !req.authData.friends.includes(results.removedUser._id)
+          req.authData.friends.includes(results.removedUser._id)
         ) {
+          console.log(!req.authData.friends.includes(results.removedUser._id));
           res.sendStatus(400);
           return;
         }
+        User.updateOne(
+          { _id: results.removedUser._id },
+          {
+            $pull: {
+              friends: req.authData._id,
+            },
+          },
+          function (err) {
+            if (err) return next(err);
+          }
+        );
         User.updateOne(
           { _id: req.authData._id },
           {

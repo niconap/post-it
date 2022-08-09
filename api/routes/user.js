@@ -27,7 +27,7 @@ router.put('/friend/request/:id/revoke', verifyToken, friend_request_revoke);
 
 router.put('/friend/accept/:id', verifyToken, friend_accept_user);
 
-router.delete('/friend/remove/:id', verifyToken, friend_remove);
+router.put('/friend/remove/:id', verifyToken, friend_remove);
 
 function verifyToken(req, res, next) {
   const bearerHeader = req.headers['authorization'];
