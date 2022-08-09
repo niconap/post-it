@@ -182,7 +182,7 @@ exports.friend_remove = [
   },
 ];
 
-exports.friend_request_revoke = function(req, res, next) [
+exports.friend_request_revoke = [
   (req, res, next) => {
     jwt.verify(req.token, process.env.SESSION_SECRET, (err, authData) => {
       if (err) {
