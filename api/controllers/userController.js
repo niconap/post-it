@@ -86,6 +86,11 @@ exports.get_user = function (req, res, next) {
         return;
       }
       results.user.password = null;
+      results.user.email = null;
+      results.user.friends.map((friend) => {
+        friend.password = null;
+        friend.email = null;
+      });
       res.json(results.user);
     }
   );
