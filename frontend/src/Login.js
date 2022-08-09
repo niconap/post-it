@@ -40,7 +40,7 @@ function Login() {
 
   return (
     <div id="login">
-      {signup ? (
+      {signup === true ? (
         <p>You successfully created an account, please log in to continue</p>
       ) : null}
       <form onSubmit={handleSubmit} name="login">
