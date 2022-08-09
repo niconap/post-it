@@ -103,6 +103,9 @@ exports.friend_accept_user = [
             $push: {
               friends: req.authData._id,
             },
+            $pull: {
+              requests: req.authData._id,
+            },
           },
           function (err) {
             if (err) return next(err);
