@@ -180,3 +180,8 @@ a {
 .comment span {
   margin-right: 0.5rem;
 }
+
+#bell svg {
+  position: relative;
+  top: 5px;
+}
