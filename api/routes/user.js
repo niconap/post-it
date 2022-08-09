@@ -7,6 +7,7 @@ const {
 } = require('../controllers/userController');
 const {
   friend_request_user,
+  friend_request_revoke,
   friend_accept_user,
   friend_remove,
 } = require('../controllers/friendController');

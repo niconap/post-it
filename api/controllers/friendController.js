@@ -181,3 +181,59 @@ exports.friend_remove = [
     );
   },
 ];
+
+exports.friend_request_revoke = function(req, res, next) [
+  (req, res, next) => {
+    jwt.verify(req.token, process.env.SESSION_SECRET, (err, authData) => {
+      if (err) {
+        res.sendStatus(403);
+        return;
+      } else {
+        req.authData = authData;
+        next();
+      }
+    });
+  },
+
+  (req, res, next) => {
+    async.parallel(
+      {
+        requestedUser: function (callback) {
+          User.findById(req.params.id).exec(callback);
+        },
+      },
+      function (err, results) {
+        if (err) return next(err);
+        if (results.requestedUser == null) {
+          res.sendStatus(404);
+          return;
+        }
+        if (results.requestedUser._id == req.authData._id) {
+          res.sendStatus(400);
+          return;
+        }
+        if (
+          !results.requestedUser.requests.includes(req.authData._id) ||
+          results.requestedUser.friends.includes(req.authData._id)
+        ) {
+          res.sendStatus(400);
+          return;
+        }
+        User.updateOne(
+          { _id: results.requestedUser._id },
+          {
+            $pull: {
+              requests: req.authData._id,
+            },
+          },
+          function (err) {
+            if (err) return next(err);
+            res.json({
+              message: `Friend request to ${results.requestedUser.username} has been succesfully revoked`,
+            });
+          }
+        );
+      }
+    );
+  },
+];
