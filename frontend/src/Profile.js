@@ -130,6 +130,11 @@ function Profile() {
         </div>
         <div id="friends">
           <h3>Friends list</h3>
+          {user.friends.length === 0 ? (
+            <p>This user doesn't have any friends yet</p>
+          ) : (
+            ''
+          )}
           <ul>
             {user.friends.map((friend) => {
               return (
