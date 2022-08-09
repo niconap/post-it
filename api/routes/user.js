@@ -22,7 +22,7 @@ router.put('/:id', verifyToken, update_user);
 
 router.put('/friend/request/:id', verifyToken, friend_request_user);
 
-// Create route to unsend a request
+router.put('/friend/request/:id/revoke', verifyToken, friend_request_revoke);
 
 router.put('/friend/accept/:id', verifyToken, friend_accept_user);
 
