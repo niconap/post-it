@@ -39,6 +39,26 @@ function Profile() {
           Authorization: localStorage.getItem('token'),
         },
       });
+      fetchUserData();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleRevokeRequest = async () => {
+    try {
+      await fetch(
+        `http://localhost:5000/api/user/friend/request/${user._id}/revoke`,
+        {
+          method: 'PUT',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: localStorage.getItem('token'),
+          },
+        }
+      );
+      fetchUserData();
     } catch (err) {
       console.log(err);
     }
@@ -47,18 +67,17 @@ function Profile() {
   if (isLoaded) {
     return (
       <div id="profile">
-        {console.log(user)}
         <h1>{user.firstName + ' ' + user.lastName}</h1>
         <h3>{user.username}</h3>
-        {user._id === localStorage.getItem('user') ||
-        user.requests.indexOf(localStorage.getItem('token')) ? (
+        {user._id == localStorage.getItem('user') ||
+        user.requests.indexOf(localStorage.getItem('user')) >= 0 ? (
           ''
         ) : (
           <button onClick={handleFriendRequest}>Add friend</button>
         )}
-        {user._id !== localStorage.getItem('user') &&
-        user.requests.indexOf(localStorage.getItem('token')) ? (
-          <button>Revoke request</button>
+        {user._id != localStorage.getItem('user') &&
+        user.requests.indexOf(localStorage.getItem('user')) >= 0 ? (
+          <button onClick={handleRevokeRequest}>Revoke request</button>
         ) : (
           ''
         )}
