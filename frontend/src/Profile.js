@@ -10,7 +10,7 @@ function Profile() {
 
   const fetchUserData = async () => {
     let res = await fetch(
-      `http://localhost:5000/api/user/${searchParams.get('id')}`,
+      `http://localhost:5000/api/user/get/${searchParams.get('id')}`,
       {
         method: 'GET',
         mode: 'cors',
@@ -69,13 +69,13 @@ function Profile() {
       <div id="profile">
         <h1>{user.firstName + ' ' + user.lastName}</h1>
         <h3>{user.username}</h3>
-        {user._id == localStorage.getItem('user') ||
+        {user._id === localStorage.getItem('user') ||
         user.requests.indexOf(localStorage.getItem('user')) >= 0 ? (
           ''
         ) : (
           <button onClick={handleFriendRequest}>Add friend</button>
         )}
-        {user._id != localStorage.getItem('user') &&
+        {user._id !== localStorage.getItem('user') &&
         user.requests.indexOf(localStorage.getItem('user')) >= 0 ? (
           <button onClick={handleRevokeRequest}>Revoke request</button>
         ) : (
