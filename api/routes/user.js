@@ -6,15 +6,16 @@ const {
   get_user,
 } = require('../controllers/userController');
 const {
+  get_friend_requests,
   friend_request_user,
   friend_request_revoke,
   friend_accept_user,
   friend_remove,
 } = require('../controllers/friendController');
 
-router.get('/:id', get_user);
+router.get('/get/:id', get_user);
 
-// Create route for getting requests
+router.get('/requests', verifyToken, get_friend_requests);
 
 router.delete('/:id', verifyToken, delete_user);
 

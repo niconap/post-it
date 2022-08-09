@@ -237,3 +237,48 @@ exports.friend_request_revoke = [
     );
   },
 ];
+
+exports.get_friend_requests = [
+  (req, res, next) => {
+    jwt.verify(req.token, process.env.SESSION_SECRET, (err, authData) => {
+      if (err) {
+        res.sendStatus(403);
+        return;
+      } else {
+        req.authData = authData;
+        next();
+      }
+    });
+  },
+
+  (req, res, next) => {
+    async.parallel(
+      {
+        user: function (callback) {
+          User.findById(req.authData._id)
+            .select('requests')
+            .populate('requests')
+            .exec(callback);
+        },
+      },
+      function (err, results) {
+        if (err) return next(err);
+        if (results.user == null) {
+          res.sendStatus(404);
+          return;
+        }
+        if (results.user._id != req.authData._id) {
+          res.sendStatus(403);
+          return;
+        }
+        results.user.requests.map((request) => {
+          request.email = null;
+          request.password = null;
+        });
+        res.json({
+          requests: results.user.requests,
+        });
+      }
+    );
+  },
+];
