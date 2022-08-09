@@ -16,7 +16,6 @@ function RequestsPage() {
       },
     });
     let resJson = await res.json();
-    console.log(resJson);
     setRequests(resJson.requests);
     setIsLoaded(true);
   };
@@ -34,7 +33,6 @@ function RequestsPage() {
       }
     );
     let resJson = await res.json();
-    console.log(resJson);
     fetchRequests();
   };
 
@@ -43,7 +41,6 @@ function RequestsPage() {
   }, []);
 
   if (isLoaded) {
-    console.log(requests);
     return (
       <div id="requestspage">
         <h3>Incoming friend requests</h3>
