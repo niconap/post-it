@@ -12,7 +12,10 @@ function Post(props) {
   const [deletePressed, setDeletePressed] = useState(false);
 
   const checkLike = () => {
-    return post.likes.includes(localStorage.getItem('user'));
+    const isLiked = post.likes.filter((like) => {
+      return like._id === localStorage.getItem('user');
+    });
+    return isLiked.length > 0;
   };
 
   const handleClick = () => {

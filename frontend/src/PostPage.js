@@ -37,7 +37,10 @@ function PostPage() {
   }, []);
 
   const checkLike = () => {
-    return post.likes.includes(localStorage.getItem('user'));
+    const isLiked = post.likes.filter((like) => {
+      return like._id === localStorage.getItem('user');
+    });
+    return isLiked.length > 0;
   };
 
   const handleLike = async () => {
@@ -72,6 +75,7 @@ function PostPage() {
   };
 
   if (isLoaded) {
+    console.log(post);
     let date = new Date(post.timeStamp);
     return (
       <div key={uniqid()} className="post">
