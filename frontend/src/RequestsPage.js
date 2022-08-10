@@ -21,18 +21,14 @@ function RequestsPage() {
   };
 
   const acceptRequest = async (id) => {
-    let res = await fetch(
-      `http://localhost:5000/api/user/friend/accept/${id}`,
-      {
-        method: 'PUT',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: localStorage.getItem('token'),
-        },
-      }
-    );
-    let resJson = await res.json();
+    await fetch(`http://localhost:5000/api/user/friend/accept/${id}`, {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token'),
+      },
+    });
     fetchRequests();
   };
 

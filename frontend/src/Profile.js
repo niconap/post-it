@@ -7,6 +7,7 @@ function Profile() {
   const [searchParams] = useSearchParams();
   const [isLoaded, setIsLoaded] = useState(false);
   const [user, setUser] = useState('');
+  const [requests, setRequests] = useState([]);
 
   const fetchUserData = async () => {
     let res = await fetch(
@@ -22,6 +23,16 @@ function Profile() {
     );
     let resJson = await res.json();
     setUser(resJson);
+    let res2 = await fetch(`http://localhost:5000/api/user/requests`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token'),
+      },
+    });
+    let resJson2 = await res2.json();
+    setRequests(resJson2.requests);
     setIsLoaded(true);
   };
 
@@ -80,9 +91,25 @@ function Profile() {
     }
   };
 
+  const acceptRequest = async (id) => {
+    await fetch(`http://localhost:5000/api/user/friend/accept/${user._id}`, {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token'),
+      },
+    });
+    fetchUserData();
+  };
+
   if (isLoaded) {
-    let isFriend = user.friends.filter((friend) => {
+    const isFriend = user.friends.filter((friend) => {
       return friend._id === localStorage.getItem('user');
+    });
+
+    const isRequested = requests.filter((request) => {
+      return request._id === user._id;
     });
 
     return (
@@ -91,7 +118,8 @@ function Profile() {
         <h3>{user.username}</h3>
         {user._id === localStorage.getItem('user') ||
         user.requests.indexOf(localStorage.getItem('user')) >= 0 ||
-        isFriend.length > 0 ? (
+        isFriend.length > 0 ||
+        isRequested.length > 0 ? (
           ''
         ) : (
           <button onClick={handleFriendRequest}>Add friend</button>
@@ -104,6 +132,14 @@ function Profile() {
         )}
         {isFriend.length > 0 ? (
           <button onClick={handleRemoveFriend}>Remove friend</button>
+        ) : (
+          ''
+        )}
+        {isRequested.length > 0 ? (
+          <div id="requested">
+            <span>{user.firstName} sent you a friend request </span>
+            <button onClick={acceptRequest}>Accept</button>
+          </div>
         ) : (
           ''
         )}
