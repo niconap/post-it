@@ -74,8 +74,13 @@ exports.get_user = function (req, res, next) {
     {
       user: function (callback) {
         User.findById(req.params.id)
-          .populate('friends')
-          .populate('posts')
+          .select('firstName lastName requests friends username friends')
+          .populate('friends', 'firstName username')
+          .exec(callback);
+      },
+      posts: function (callback) {
+        Post.find({ user: req.params.id })
+          .populate('likes', 'username firstName')
           .exec(callback);
       },
     },
@@ -85,12 +90,7 @@ exports.get_user = function (req, res, next) {
         res.sendStatus(404);
         return;
       }
-      results.user.password = null;
-      results.user.email = null;
-      results.user.friends.map((friend) => {
-        friend.password = null;
-        friend.email = null;
-      });
+      results.user.posts = results.posts;
       res.json(results.user);
     }
   );

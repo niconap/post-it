@@ -272,7 +272,7 @@ exports.get_friend_requests = [
         user: function (callback) {
           User.findById(req.authData._id)
             .select('requests')
-            .populate('requests')
+            .populate('requests', 'firstName username')
             .exec(callback);
         },
       },
@@ -286,10 +286,6 @@ exports.get_friend_requests = [
           res.sendStatus(403);
           return;
         }
-        results.user.requests.map((request) => {
-          request.email = null;
-          request.password = null;
-        });
         res.json({
           requests: results.user.requests,
         });
