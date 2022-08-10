@@ -75,7 +75,6 @@ function PostPage() {
   };
 
   if (isLoaded) {
-    console.log(post);
     let date = new Date(post.timeStamp);
     return (
       <div key={uniqid()} className="post">
@@ -134,6 +133,26 @@ function PostPage() {
                 })
             ) : (
               <p>No one has posted a comment yet, be the first to comment!</p>
+            )}
+          </div>
+          <div className="likelist">
+            <h3>Likes:</h3>
+            {post.likes.length !== 0 ? (
+              post.likes.map((like) => {
+                return (
+                  <div key={uniqid()} className="likeli">
+                    <span>
+                      {like.firstName} (
+                      <NavLink to={`/profile?id=${like._id}`}>
+                        {like.username}
+                      </NavLink>
+                      )
+                    </span>
+                  </div>
+                );
+              })
+            ) : (
+              <p>No one has liked this post yet</p>
             )}
           </div>
         </div>

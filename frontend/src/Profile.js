@@ -112,8 +112,6 @@ function Profile() {
       return request._id === user._id;
     });
 
-    console.log(user);
-
     return (
       <div id="profile">
         <h1>{user.firstName + ' ' + user.lastName}</h1>
