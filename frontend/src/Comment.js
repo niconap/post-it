@@ -36,7 +36,7 @@ function Comment(props) {
 
   return (
     <div className="comment">
-      <div className="content">
+      <div className="commentcontent">
         <span>
           <NavLink to={`/profile?id=${props.comment.user}`}>
             {props.comment.username}
@@ -67,7 +67,7 @@ function Comment(props) {
         ''
       )}
       {deletePressed ? (
-        <span className="confirmation"> Click again to confirm</span>
+        <span className="deleteconfirmation"> Click again to confirm</span>
       ) : (
         ''
       )}

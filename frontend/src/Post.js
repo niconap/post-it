@@ -118,7 +118,7 @@ function Post(props) {
             <FavoriteBorderOutlinedIcon fontSize="small" />
           )}
         </div>
-        <div className="commentButton">
+        <div className="commentbutton">
           <NavLink to={`/post?id=${post._id}`}>
             <ModeCommentOutlinedIcon fontSize="small" />
           </NavLink>
@@ -135,7 +135,7 @@ function Post(props) {
           ''
         )}
         {deletePressed ? (
-          <span className="confirmation"> Click again to confirm</span>
+          <span className="deleteconfirmation"> Click again to confirm</span>
         ) : (
           ''
         )}

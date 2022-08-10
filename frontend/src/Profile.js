@@ -84,7 +84,6 @@ function Profile() {
     let isFriend = user.friends.filter((friend) => {
       return friend._id === localStorage.getItem('user');
     });
-    console.log(user.friends);
 
     return (
       <div id="profile">
