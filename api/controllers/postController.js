@@ -4,6 +4,7 @@ const Comment = require('../models/comment');
 const async = require('async');
 const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
+const user = require('../models/user');
 
 exports.post_create = [
   (req, res, next) => {
@@ -126,10 +127,33 @@ exports.post_get_friends = [
   (req, res, next) => {
     async.parallel(
       {
+        user: function (callback) {
+          User.findById(req.authData._id).exec(callback);
+        },
+      },
+      function (err, results) {
+        if (err) return next(err);
+        if (results.user == null) {
+          res.sendStatus(404);
+          return;
+        }
+        req.authData = results.user;
+        next();
+      }
+    );
+  },
+
+  (req, res, next) => {
+    async.parallel(
+      {
         posts: function (callback) {
           Post.find({
-            user: { $in: req.authData.friends },
-            user: req.authData._id,
+            $or: [
+              { user: { $in: req.authData.friends } },
+              {
+                user: req.authData._id,
+              },
+            ],
           })
             .populate({ path: 'user', select: 'username firstName lastName' })
             .populate('comments')
