@@ -4,6 +4,7 @@ const {
   delete_user,
   update_user,
   get_user,
+  get_users,
 } = require('../controllers/userController');
 const {
   get_friend_requests,
@@ -16,6 +17,8 @@ const {
 router.get('/get/:id', get_user);
 
 router.get('/requests', verifyToken, get_friend_requests);
+
+router.get('/all', verifyToken, get_users);
 
 router.delete('/:id', verifyToken, delete_user);
 

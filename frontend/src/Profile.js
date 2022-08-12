@@ -91,7 +91,7 @@ function Profile() {
     }
   };
 
-  const acceptRequest = async (id) => {
+  const acceptRequest = async () => {
     await fetch(`http://localhost:5000/api/user/friend/accept/${user._id}`, {
       method: 'PUT',
       mode: 'cors',

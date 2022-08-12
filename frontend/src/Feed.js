@@ -3,11 +3,13 @@ import Post from './Post';
 import uniqid from 'uniqid';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import PostForm from './PostForm';
+import UserList from './UserList';
 
 function Feed() {
   const [mode, setMode] = useState('general');
   const [generalPosts, setGeneralPosts] = useState([]);
   const [friendPosts, setFriendPosts] = useState([]);
+  const [users, setUsers] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   const fetchPosts = async () => {
@@ -42,8 +44,27 @@ function Feed() {
     setIsLoaded(true);
   };
 
+  const fetchUsers = async () => {
+    try {
+      let res = await fetch('http://localhost:5000/api/user/all', {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('token'),
+        },
+      });
+      let resJson = await res.json();
+      setUsers(resJson);
+      console.log(resJson);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     fetchPosts();
+    fetchUsers();
   }, []);
 
   if (isLoaded) {
@@ -99,6 +120,7 @@ function Feed() {
                   />
                 );
               })}
+        <UserList fetchUsers={fetchUsers} users={users} />
       </div>
     );
   } else {

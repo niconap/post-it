@@ -96,6 +96,26 @@ exports.get_user = function (req, res, next) {
   );
 };
 
+exports.get_users = function (req, res, next) {
+  async.parallel(
+    {
+      users: function (callback) {
+        User.find()
+          .select('firstName lastName requests friends username friends')
+          .exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) return next(err);
+      if (results.users == null) {
+        res.sendStatus(404);
+        return;
+      }
+      res.json(results.users);
+    }
+  );
+};
+
 exports.delete_user = function (req, res, next) {
   jwt.verify(req.token, process.env.SESSION_SECRET, (err, authData) => {
     if (err) {
