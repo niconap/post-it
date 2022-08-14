@@ -39,26 +39,6 @@ function Profile(props) {
   useEffect(() => {
     fetchUserData();
   }, []);
-
-  const handleRevokeRequest = async () => {
-    try {
-      await fetch(
-        `http://localhost:5000/api/user/friend/request/${user._id}/revoke`,
-        {
-          method: 'PUT',
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: localStorage.getItem('token'),
-          },
-        }
-      );
-      fetchUserData();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const handleRemoveFriend = async () => {
     try {
       await fetch(`http://localhost:5000/api/user/friend/remove/${user._id}/`, {
@@ -102,7 +82,10 @@ function Profile(props) {
         )}
         {user._id !== localStorage.getItem('user') &&
         user.requests.indexOf(localStorage.getItem('user')) >= 0 ? (
-          <button className="redbutton" onClick={handleRevokeRequest}>
+          <button
+            className="redbutton"
+            onClick={() => props.revokeRequest(user._id, fetchUserData)}
+          >
             Revoke request
           </button>
         ) : (

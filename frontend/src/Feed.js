@@ -126,6 +126,7 @@ function Feed(props) {
             acceptRequest={props.acceptRequest}
             declineRequest={props.declineRequest}
             sendFriendRequest={props.sendFriendRequest}
+            revokeRequest={props.revokeRequest}
             fetchUsers={fetchUsers}
             users={users}
           />

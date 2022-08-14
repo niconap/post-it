@@ -57,6 +57,25 @@ export default function App() {
     }
   };
 
+  const revokeRequest = async (id, callback) => {
+    try {
+      await fetch(
+        `http://localhost:5000/api/user/friend/request/${id}/revoke`,
+        {
+          method: 'PUT',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: localStorage.getItem('token'),
+          },
+        }
+      );
+      callback();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   if (localStorage.getItem('token') != null) {
     return (
       <BrowserRouter>
@@ -70,6 +89,7 @@ export default function App() {
                 acceptRequest={acceptRequest}
                 declineRequest={declineRequest}
                 sendFriendRequest={sendFriendRequest}
+                revokeRequest={revokeRequest}
               />
             }
           />
@@ -91,6 +111,7 @@ export default function App() {
                 acceptRequest={acceptRequest}
                 declineRequest={declineRequest}
                 sendFriendRequest={sendFriendRequest}
+                revokeRequest={revokeRequest}
               />
             }
           />

@@ -5,25 +5,6 @@ import uniqid from 'uniqid';
 function UserList(props) {
   const [requests, setRequests] = useState([]);
 
-  const handleRevokeRequest = async (id) => {
-    try {
-      await fetch(
-        `http://localhost:5000/api/user/friend/request/${id}/revoke`,
-        {
-          method: 'PUT',
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: localStorage.getItem('token'),
-          },
-        }
-      );
-      props.fetchUsers();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const users = props.users.filter((user) => {
     return (
       !user.friends.includes(localStorage.getItem('user')) &&
@@ -86,7 +67,7 @@ function UserList(props) {
             user.requests.indexOf(localStorage.getItem('user')) >= 0 ? (
               <button
                 className="redbutton"
-                onClick={() => handleRevokeRequest(user._id)}
+                onClick={() => props.revokeRequest(user._id, props.fetchUsers)}
               >
                 Revoke request
               </button>
