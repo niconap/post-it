@@ -125,6 +125,7 @@ function Feed(props) {
           <UserList
             acceptRequest={props.acceptRequest}
             declineRequest={props.declineRequest}
+            sendFriendRequest={props.sendFriendRequest}
             fetchUsers={fetchUsers}
             users={users}
           />

@@ -10,27 +10,51 @@ import RequestsPage from './RequestsPage';
 
 export default function App() {
   const acceptRequest = async (id, callback) => {
-    await fetch(`http://localhost:5000/api/user/friend/accept/${id}`, {
-      method: 'PUT',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-    callback();
+    try {
+      await fetch(`http://localhost:5000/api/user/friend/accept/${id}`, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('token'),
+        },
+      });
+      callback();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const declineRequest = async (id, callback) => {
-    await fetch(`http://localhost:5000/api/user/friend/decline/${id}`, {
-      method: 'PUT',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-    callback();
+    try {
+      await fetch(`http://localhost:5000/api/user/friend/decline/${id}`, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('token'),
+        },
+      });
+      callback();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const sendFriendRequest = async (id, callback) => {
+    try {
+      await fetch(`http://localhost:5000/api/user/friend/request/${id}`, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('token'),
+        },
+      });
+      callback();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   if (localStorage.getItem('token') != null) {
@@ -45,6 +69,7 @@ export default function App() {
               <Profile
                 acceptRequest={acceptRequest}
                 declineRequest={declineRequest}
+                sendFriendRequest={sendFriendRequest}
               />
             }
           />
@@ -65,6 +90,7 @@ export default function App() {
               <Feed
                 acceptRequest={acceptRequest}
                 declineRequest={declineRequest}
+                sendFriendRequest={sendFriendRequest}
               />
             }
           />

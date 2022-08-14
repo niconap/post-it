@@ -24,22 +24,6 @@ function UserList(props) {
     }
   };
 
-  const handleFriendRequest = async (id) => {
-    try {
-      await fetch(`http://localhost:5000/api/user/friend/request/${id}`, {
-        method: 'PUT',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: localStorage.getItem('token'),
-        },
-      });
-      props.fetchUsers();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const users = props.users.filter((user) => {
     return (
       !user.friends.includes(localStorage.getItem('user')) &&
@@ -90,7 +74,11 @@ function UserList(props) {
             requests.includes(user._id) ? (
               ''
             ) : (
-              <button onClick={() => handleFriendRequest(user._id)}>
+              <button
+                onClick={() =>
+                  props.sendFriendRequest(user._id, props.fetchUsers)
+                }
+              >
                 Add friend
               </button>
             )}
