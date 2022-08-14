@@ -88,39 +88,43 @@ function Feed() {
         <div id="info-icon">
           <InfoOutlinedIcon fontSize="small" sx={{ color: 'gray' }} />
         </div>
-        <PostForm />
-        {mode === 'general'
-          ? generalPosts
-              .slice(0)
-              .reverse()
-              .map((post) => {
-                let date = new Date(post.timeStamp);
-                return (
-                  <Post
-                    key={uniqid()}
-                    fetchPosts={fetchPosts}
-                    date={date}
-                    post={post}
-                    mode={mode}
-                  />
-                );
-              })
-          : friendPosts
-              .slice(0)
-              .reverse()
-              .map((post) => {
-                let date = new Date(post.timeStamp);
-                return (
-                  <Post
-                    key={uniqid()}
-                    fetchPosts={fetchPosts}
-                    date={date}
-                    post={post}
-                    mode={mode}
-                  />
-                );
-              })}
-        <UserList fetchUsers={fetchUsers} users={users} />
+        <div id="feed">
+          <PostForm />
+          <div className="posts">
+            {mode === 'general'
+              ? generalPosts
+                  .slice(0)
+                  .reverse()
+                  .map((post) => {
+                    let date = new Date(post.timeStamp);
+                    return (
+                      <Post
+                        key={uniqid()}
+                        fetchPosts={fetchPosts}
+                        date={date}
+                        post={post}
+                        mode={mode}
+                      />
+                    );
+                  })
+              : friendPosts
+                  .slice(0)
+                  .reverse()
+                  .map((post) => {
+                    let date = new Date(post.timeStamp);
+                    return (
+                      <Post
+                        key={uniqid()}
+                        fetchPosts={fetchPosts}
+                        date={date}
+                        post={post}
+                        mode={mode}
+                      />
+                    );
+                  })}
+          </div>
+          <UserList fetchUsers={fetchUsers} users={users} />
+        </div>
       </div>
     );
   } else {

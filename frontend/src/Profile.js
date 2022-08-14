@@ -126,60 +126,73 @@ function Profile() {
         )}
         {user._id !== localStorage.getItem('user') &&
         user.requests.indexOf(localStorage.getItem('user')) >= 0 ? (
-          <button onClick={handleRevokeRequest}>Revoke request</button>
+          <button className="redbutton" onClick={handleRevokeRequest}>
+            Revoke request
+          </button>
         ) : (
           ''
         )}
         {isFriend.length > 0 ? (
-          <button onClick={handleRemoveFriend}>Remove friend</button>
+          <button className="redbutton" onClick={handleRemoveFriend}>
+            Remove friend
+          </button>
         ) : (
           ''
         )}
         {isRequested.length > 0 ? (
           <div id="requested">
             <span>{user.firstName} sent you a friend request </span>
-            <button onClick={acceptRequest}>Accept</button>
+            <button className="greenbutton" onClick={acceptRequest}>
+              Accept
+            </button>
           </div>
         ) : (
           ''
         )}
-        <div className="posts">
-          {user.posts && user.posts.length !== 0 ? (
-            user.posts
-              .slice(0)
-              .reverse()
-              .map((post) => {
-                let date = new Date(post.timeStamp);
+        <div id="feed">
+          <div className="posts">
+            {user.posts && user.posts.length !== 0 ? (
+              user.posts
+                .slice(0)
+                .reverse()
+                .map((post) => {
+                  let date = new Date(post.timeStamp);
+                  return (
+                    <Post
+                      key={uniqid()}
+                      fetchPosts={fetchUserData}
+                      date={date}
+                      post={post}
+                    />
+                  );
+                })
+            ) : (
+              <p>{user.firstName} hasn't published any posts yet.</p>
+            )}
+          </div>
+          <div className="users">
+            <h3>Friends list</h3>
+            {user.friends.length === 0 ? (
+              <p>{user.firstName} doesn't have any friends yet</p>
+            ) : (
+              ''
+            )}
+            <ul>
+              {user.friends.map((friend) => {
                 return (
-                  <Post
-                    key={uniqid()}
-                    fetchPosts={fetchUserData}
-                    date={date}
-                    post={post}
-                  />
+                  <li key={uniqid()}>
+                    {friend.firstName} (
+                    {
+                      <a href={`/profile?id=${friend._id}`}>
+                        {friend.username}
+                      </a>
+                    }
+                    )
+                  </li>
                 );
-              })
-          ) : (
-            <p>{user.firstName} hasn't published any posts yet.</p>
-          )}
-        </div>
-        <div id="friends">
-          <h3>Friends list</h3>
-          {user.friends.length === 0 ? (
-            <p>{user.firstName} doesn't have any friends yet</p>
-          ) : (
-            ''
-          )}
-          <ul>
-            {user.friends.map((friend) => {
-              return (
-                <li key={uniqid()}>
-                  {friend.firstName} (
-                  {<a href={`/profile?id=${friend._id}`}>{friend.username}</a>})
-                </li>
-              );
-            })}
-          </ul>
+              })}
+            </ul>
+          </div>
         </div>
       </div>
     );

@@ -45,7 +45,7 @@ function UserList(props) {
   });
 
   return (
-    <div id="userlist">
+    <div class="users">
       <h3>Find new friends!</h3>
       {users.map((user) => {
         return (

@@ -1,5 +1,11 @@
 :root {
   --blue: rgb(118, 164, 250);
+  --focusblue: rgb(57, 159, 255);
+  --activeblue: rgb(85, 144, 255);
+  --red: rgb(255, 73, 73);
+  --focusred: rgb(230, 29, 29);
+  --green: rgb(48, 211, 33);
+  --focusgreen: rgb(39, 177, 27);
   --white: rgb(255,255,255);
   --offwhite: rgb(240, 240, 240);
   --focuswhite: rgb(235, 235, 235);
@@ -92,7 +98,7 @@ input[type="text"], input[type="password"], input[type="email"] {
   width: 15rem;
 }
 
-input[type="text"], input[type="password"]:focus, input[type="email"]:focus {
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
   background-color: var(--focuswhite);
 }
 
@@ -100,11 +106,27 @@ input[type="submit"]:active, button:active {
   background-color: var(--activewhite);
 }
 
+.redbutton {
+  background-color: var(--red);
+}
+
+.redbutton:hover {
+  background-color: var(--focusred);
+}
+
+.greenbutton {
+  background-color: var(--green);
+}
+
+.greenbutton:hover {
+  background-color: var(--focusgreen);
+}
+
 .like, .commentbutton, .delete, input[type="submit"], button {
   border-radius: 6px;
   background-color: var(--white);
   border: none;
-  width: 4rem;
+  min-width: 4rem;
   height: fit-content;
   display: inline-block;
   text-align: center;
@@ -112,13 +134,23 @@ input[type="submit"]:active, button:active {
   transition: color 0.2s ease, background-color 0.2s ease;
 }
 
-.like:hover, .commentbutton:hover, .delete:hover, input[type="submit"]:hover, button:hover {
+input[type="submit"], button {
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+.like:hover, .commentbutton:hover, .delete:hover {
   background-color: var(--offwhite);
   cursor: pointer;
 }
 
+input[type="submit"]:hover, button:hover {
+  background-color: var(--focusblue);
+  cursor: pointer;
+}
+
 .like:hover, .delete:hover {
-  color: rgb(255, 73, 73);
+  color: var(--red);
   transition: color 0.2s ease;
 }
 
@@ -190,4 +222,24 @@ a {
 #bell svg {
   position: relative;
   top: 5px;
+}
+
+#feed {
+  display: grid;
+  grid-template-areas:  'form form'
+                        'posts users';
+  grid-template-columns: 50% 50%;
+}
+
+.posts {
+  grid-area: posts;
+}
+
+.users {
+  grid-area: users;
+}
+
+#postform {
+  margin-top: 1rem;
+  grid-area: form;
 }

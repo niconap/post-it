@@ -55,9 +55,13 @@ function RequestsPage() {
                   }
                   ) wants to be your friend
                 </span>
-                <button onClick={() => acceptRequest(request._id)}>
+                <button
+                  className="greenbutton"
+                  onClick={() => acceptRequest(request._id)}
+                >
                   Accept
                 </button>
+                <button className="redbutton">Decline</button>
               </div>
             );
           })
