@@ -133,6 +133,75 @@ exports.friend_accept_user = [
   },
 ];
 
+exports.friend_decline_user = [
+  (req, res, next) => {
+    jwt.verify(req.token, process.env.SESSION_SECRET, (err, authData) => {
+      if (err) {
+        res.sendStatus(403);
+        return;
+      } else {
+        req.authData = authData;
+        next();
+      }
+    });
+  },
+
+  (req, res, next) => {
+    async.parallel(
+      {
+        declinedUser: function (callback) {
+          User.findById(req.params.id).exec(callback);
+        },
+      },
+      function (err, results) {
+        if (err) return next(err);
+        if (results.declinedUser == null) {
+          res.sendStatus(404);
+          return;
+        }
+        if (results.declinedUser._id == req.authData._id) {
+          res.sendStatus(400);
+          return;
+        }
+        if (
+          req.authData.friends.includes(results.declinedUser._id) ||
+          !req.authData.requests.includes(results.declinedUser._id.toString())
+        ) {
+          res.sendStatus(400);
+          return;
+        }
+        User.updateOne(
+          {
+            _id: results.declinedUser._id,
+          },
+          {
+            $pull: {
+              requests: req.authData._id,
+            },
+          },
+          function (err) {
+            if (err) return next(err);
+          }
+        );
+        User.updateOne(
+          { _id: req.authData._id },
+          {
+            $pull: {
+              requests: results.declinedUser._id,
+            },
+          },
+          function (err) {
+            if (err) return next(err);
+            res.json({
+              message: `${results.declinedUser.username}'s friend request has succesfully been declined`,
+            });
+          }
+        );
+      }
+    );
+  },
+];
+
 exports.friend_remove = [
   (req, res, next) => {
     jwt.verify(req.token, process.env.SESSION_SECRET, (err, authData) => {

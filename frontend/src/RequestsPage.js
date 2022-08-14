@@ -32,6 +32,18 @@ function RequestsPage() {
     fetchRequests();
   };
 
+  const declineRequest = async (id) => {
+    await fetch(`http://localhost:5000/api/user/friend/decline/${id}`, {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token'),
+      },
+    });
+    fetchRequests();
+  };
+
   useEffect(() => {
     fetchRequests();
   }, []);
@@ -61,7 +73,12 @@ function RequestsPage() {
                 >
                   Accept
                 </button>
-                <button className="redbutton">Decline</button>
+                <button
+                  className="redbutton"
+                  onClick={() => declineRequest(request._id)}
+                >
+                  Decline
+                </button>
               </div>
             );
           })

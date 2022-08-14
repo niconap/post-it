@@ -11,6 +11,7 @@ const {
   friend_request_user,
   friend_request_revoke,
   friend_accept_user,
+  friend_decline_user,
   friend_remove,
 } = require('../controllers/friendController');
 
@@ -29,6 +30,8 @@ router.put('/friend/request/:id', verifyToken, friend_request_user);
 router.put('/friend/request/:id/revoke', verifyToken, friend_request_revoke);
 
 router.put('/friend/accept/:id', verifyToken, friend_accept_user);
+
+router.put('/friend/decline/:id', verifyToken, friend_decline_user);
 
 router.put('/friend/remove/:id', verifyToken, friend_remove);
 
