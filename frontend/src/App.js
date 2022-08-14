@@ -120,12 +120,14 @@ export default function App() {
     );
   } else {
     return (
-      <BrowserRouter>
-        <Routes>
-          <Route exact path="/signup" element={<Signup />} />
-          <Route path="*" element={<Login />} />
-        </Routes>
-      </BrowserRouter>
+      <div className="bluebackground">
+        <BrowserRouter>
+          <Routes>
+            <Route exact path="/signup" element={<Signup />} />
+            <Route path="*" element={<Login />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
     );
   }
 }

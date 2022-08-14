@@ -77,83 +77,85 @@ function PostPage() {
   if (isLoaded) {
     let date = new Date(post.timeStamp);
     return (
-      <div key={uniqid()} className="post">
-        <h2>{post.title}</h2>
-        <p>{post.content}</p>
-        <span>
-          Written by: {post.user.firstName} (
-          <NavLink to={`/profile?id=${post.user._id}`}>
-            {post.user.username}
-          </NavLink>
-          ) on{' '}
-          {date.toLocaleDateString(undefined, {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-          })}
-        </span>
-        <div className="likes">
-          {post.likes.length === 1
-            ? 'Liked by 1 person'
-            : `Liked by ${post.likes.length} people`}
-        </div>
-        <div className="buttons">
-          <div className="like" onClick={handleLike}>
-            {checkLike() ? (
-              <FavoriteOutlinedIcon
-                fontSize="small"
-                sx={{ color: 'rgb(255, 73, 73)' }}
-              />
-            ) : (
-              <FavoriteBorderOutlinedIcon fontSize="small" />
-            )}
+      <div className="postpage">
+        <div key={uniqid()} className="post">
+          <h2>{post.title}</h2>
+          <p>{post.content}</p>
+          <span>
+            Written by: {post.user.firstName} (
+            <NavLink to={`/profile?id=${post.user._id}`}>
+              {post.user.username}
+            </NavLink>
+            ) on{' '}
+            {date.toLocaleDateString(undefined, {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+            })}
+          </span>
+          <div className="likes">
+            {post.likes.length === 1
+              ? 'Liked by 1 person'
+              : `Liked by ${post.likes.length} people`}
           </div>
-        </div>
-        <div className="commentsection">
-          <CommentForm postId={post._id} getPost={getPost} />
-          <div id="comments">
-            <h3>Comments:</h3>
-            {post.comments.length !== 0 ? (
-              post.comments
-                .slice(0)
-                .reverse()
-                .map((comment) => {
-                  let date = new Date(comment.timeStamp);
-                  comment.date = date;
+          <div className="postpagebuttons">
+            <div className="like" onClick={handleLike}>
+              {checkLike() ? (
+                <FavoriteOutlinedIcon
+                  fontSize="small"
+                  sx={{ color: 'rgb(255, 73, 73)' }}
+                />
+              ) : (
+                <FavoriteBorderOutlinedIcon fontSize="small" />
+              )}
+            </div>
+          </div>
+          <div className="commentsection">
+            <CommentForm postId={post._id} getPost={getPost} />
+            <div id="comments">
+              <h3>Comments:</h3>
+              {post.comments.length !== 0 ? (
+                post.comments
+                  .slice(0)
+                  .reverse()
+                  .map((comment) => {
+                    let date = new Date(comment.timeStamp);
+                    comment.date = date;
+                    return (
+                      <Comment
+                        key={uniqid()}
+                        getPost={getPost}
+                        post={searchParams.get('id')}
+                        comment={comment}
+                      />
+                    );
+                  })
+              ) : (
+                <p>No one has posted a comment yet, be the first to comment!</p>
+              )}
+            </div>
+            <div className="likelist">
+              <h3>Likes:</h3>
+              {post.likes.length !== 0 ? (
+                post.likes.map((like) => {
                   return (
-                    <Comment
-                      key={uniqid()}
-                      getPost={getPost}
-                      post={searchParams.get('id')}
-                      comment={comment}
-                    />
+                    <div key={uniqid()} className="likeli">
+                      <span>
+                        {like.firstName} (
+                        <NavLink to={`/profile?id=${like._id}`}>
+                          {like.username}
+                        </NavLink>
+                        )
+                      </span>
+                    </div>
                   );
                 })
-            ) : (
-              <p>No one has posted a comment yet, be the first to comment!</p>
-            )}
-          </div>
-          <div className="likelist">
-            <h3>Likes:</h3>
-            {post.likes.length !== 0 ? (
-              post.likes.map((like) => {
-                return (
-                  <div key={uniqid()} className="likeli">
-                    <span>
-                      {like.firstName} (
-                      <NavLink to={`/profile?id=${like._id}`}>
-                        {like.username}
-                      </NavLink>
-                      )
-                    </span>
-                  </div>
-                );
-              })
-            ) : (
-              <p>No one has liked this post yet</p>
-            )}
+              ) : (
+                <p>No one has liked this post yet</p>
+              )}
+            </div>
           </div>
         </div>
       </div>

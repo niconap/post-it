@@ -10,7 +10,7 @@ function Nav() {
   return (
     <div id="nav">
       <NavLink to="/">
-        <h1 id="maintitle">Odinbook</h1>
+        <h1 id="maintitle">Post it!</h1>
       </NavLink>
       <div id="navlinks">
         <NavLink id="bell" to="requests">

@@ -78,37 +78,39 @@ function Post(props) {
     <div key={uniqid()} className="post">
       <h3>{post.title}</h3>
       <p>{post.content}</p>
-      {typeof post.user === 'object' ? (
-        <span>
-          Written by: {post.user.firstName} (
-          <NavLink to={`/profile?id=${post.user._id}`}>
-            {post.user.username}
-          </NavLink>
-          ) on{' '}
-          {props.date.toLocaleDateString(undefined, {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-          })}
-        </span>
-      ) : (
-        <span>
-          Written on{' '}
-          {props.date.toLocaleDateString(undefined, {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-          })}
-        </span>
-      )}
-      <div className="likes">
-        {post.likes.length === 1
-          ? 'Liked by 1 person'
-          : `Liked by ${post.likes.length} people`}
+      <div className="postinfo">
+        {typeof post.user === 'object' ? (
+          <span>
+            Written by: {post.user.firstName} (
+            <NavLink to={`/profile?id=${post.user._id}`}>
+              {post.user.username}
+            </NavLink>
+            ) on{' '}
+            {props.date.toLocaleDateString(undefined, {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+            })}
+          </span>
+        ) : (
+          <span>
+            Written on{' '}
+            {props.date.toLocaleDateString(undefined, {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+            })}
+          </span>
+        )}
+        <div className="likes">
+          {post.likes.length === 1
+            ? 'Liked by 1 person'
+            : `Liked by ${post.likes.length} people`}
+        </div>
       </div>
       <div className="buttons">
         <div className="like" onClick={handleLike}>

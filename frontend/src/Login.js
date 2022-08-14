@@ -69,6 +69,7 @@ function Login() {
 
   return (
     <div id="login">
+      <h1>Post it!</h1>
       {signup === true ? (
         <p>You successfully created an account, please log in to continue</p>
       ) : null}
@@ -87,6 +88,7 @@ function Login() {
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         />
+        <br />
         <input type="submit" value="Log in" />
         <span id="message">{message}</span>
       </form>

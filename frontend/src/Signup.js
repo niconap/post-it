@@ -47,6 +47,7 @@ function Signup() {
 
   return (
     <div id="signup">
+      <h1>Post it!</h1>
       <form onSubmit={handleSubmit} name="signup">
         <input
           type="text"
@@ -83,6 +84,7 @@ function Signup() {
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         />
+        <br />
         <input type="submit" value="Sign up" />
         <ul>
           {errors.map((element) => {

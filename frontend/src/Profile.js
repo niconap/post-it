@@ -39,6 +39,7 @@ function Profile(props) {
   useEffect(() => {
     fetchUserData();
   }, []);
+
   const handleRemoveFriend = async () => {
     try {
       await fetch(`http://localhost:5000/api/user/friend/remove/${user._id}/`, {
