@@ -38,6 +38,35 @@ function Login() {
     }
   };
 
+  const dummyLogin = async () => {
+    try {
+      let res = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: 'dummyaccount',
+          password: 'dummypassword',
+        }),
+      });
+      let resJson = await res.json();
+      if (resJson.token) {
+        setUsername('');
+        setPassword('');
+        localStorage.setItem('token', `Bearer ${resJson.token}`);
+        localStorage.setItem('user', resJson.user);
+        navigate('../', { replace: true });
+        window.location.reload();
+      } else {
+        setMessage(resJson.info.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div id="login">
       {signup === true ? (
@@ -64,6 +93,7 @@ function Login() {
       <p>
         Don't have an account? Sign up <a href="signup">here</a>
       </p>
+      <button onClick={dummyLogin}>Use dummy account</button>
     </div>
   );
 }

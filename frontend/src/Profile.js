@@ -166,7 +166,7 @@ function Profile() {
         <div id="friends">
           <h3>Friends list</h3>
           {user.friends.length === 0 ? (
-            <p>This user doesn't have any friends yet</p>
+            <p>{user.firstName} doesn't have any friends yet</p>
           ) : (
             ''
           )}
