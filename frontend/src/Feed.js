@@ -5,7 +5,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import PostForm from './PostForm';
 import UserList from './UserList';
 
-function Feed() {
+function Feed(props) {
   const [mode, setMode] = useState('general');
   const [generalPosts, setGeneralPosts] = useState([]);
   const [friendPosts, setFriendPosts] = useState([]);
@@ -122,7 +122,12 @@ function Feed() {
                     );
                   })}
           </div>
-          <UserList fetchUsers={fetchUsers} users={users} />
+          <UserList
+            acceptRequest={props.acceptRequest}
+            declineRequest={props.declineRequest}
+            fetchUsers={fetchUsers}
+            users={users}
+          />
         </div>
       </div>
     );

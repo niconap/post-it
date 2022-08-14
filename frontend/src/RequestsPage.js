@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import uniqid from 'uniqid';
 import { NavLink } from 'react-router-dom';
 
-function RequestsPage() {
+function RequestsPage(props) {
   const [requests, setRequests] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -18,30 +18,6 @@ function RequestsPage() {
     let resJson = await res.json();
     setRequests(resJson.requests);
     setIsLoaded(true);
-  };
-
-  const acceptRequest = async (id) => {
-    await fetch(`http://localhost:5000/api/user/friend/accept/${id}`, {
-      method: 'PUT',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-    fetchRequests();
-  };
-
-  const declineRequest = async (id) => {
-    await fetch(`http://localhost:5000/api/user/friend/decline/${id}`, {
-      method: 'PUT',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-    fetchRequests();
   };
 
   useEffect(() => {
@@ -69,13 +45,17 @@ function RequestsPage() {
                 </span>
                 <button
                   className="greenbutton"
-                  onClick={() => acceptRequest(request._id)}
+                  onClick={() =>
+                    props.acceptRequest(request._id, fetchRequests)
+                  }
                 >
                   Accept
                 </button>
                 <button
                   className="redbutton"
-                  onClick={() => declineRequest(request._id)}
+                  onClick={() =>
+                    props.declineRequest(request._id, fetchRequests)
+                  }
                 >
                   Decline
                 </button>

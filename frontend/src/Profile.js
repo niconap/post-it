@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import Post from './Post';
 import uniqid from 'uniqid';
 
-function Profile() {
+function Profile(props) {
   const [searchParams] = useSearchParams();
   const [isLoaded, setIsLoaded] = useState(false);
   const [user, setUser] = useState('');
@@ -91,30 +91,6 @@ function Profile() {
     }
   };
 
-  const acceptRequest = async () => {
-    await fetch(`http://localhost:5000/api/user/friend/accept/${user._id}`, {
-      method: 'PUT',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-    fetchUserData();
-  };
-
-  const declineRequest = async () => {
-    await fetch(`http://localhost:5000/api/user/friend/decline/${user._id}`, {
-      method: 'PUT',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-    fetchUserData();
-  };
-
   if (isLoaded) {
     const isFriend = user.friends.filter((friend) => {
       return friend._id === localStorage.getItem('user');
@@ -154,10 +130,16 @@ function Profile() {
         {isRequested.length > 0 ? (
           <div id="requested">
             <span>{user.firstName} sent you a friend request </span>
-            <button className="greenbutton" onClick={acceptRequest}>
+            <button
+              className="greenbutton"
+              onClick={() => props.acceptRequest(user._id, fetchUserData)}
+            >
               Accept
             </button>
-            <button className="redbutton" onClick={declineRequest}>
+            <button
+              className="redbutton"
+              onClick={() => props.declineRequest(user._id, fetchUserData)}
+            >
               Decline
             </button>
           </div>

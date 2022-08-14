@@ -65,32 +65,6 @@ function UserList(props) {
     props.fetchUsers();
   };
 
-  const acceptRequest = async (id) => {
-    await fetch(`http://localhost:5000/api/user/friend/accept/${id}`, {
-      method: 'PUT',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-    fetchRequests();
-    props.fetchUsers();
-  };
-
-  const declineRequest = async (id) => {
-    await fetch(`http://localhost:5000/api/user/friend/decline/${id}`, {
-      method: 'PUT',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('token'),
-      },
-    });
-    fetchRequests();
-    props.fetchUsers();
-  };
-
   useEffect(() => {
     fetchRequests();
   }, []);
@@ -135,13 +109,23 @@ function UserList(props) {
               <div className="userlistbuttons">
                 <button
                   className="greenbutton"
-                  onClick={() => acceptRequest(user._id)}
+                  onClick={() =>
+                    props.acceptRequest(user._id, () => {
+                      fetchRequests();
+                      props.fetchUsers();
+                    })
+                  }
                 >
                   Accept
                 </button>
                 <button
                   className="redbutton"
-                  onClick={() => declineRequest(user._id)}
+                  onClick={() =>
+                    props.declineRequest(user._id, () => {
+                      fetchRequests();
+                      props.fetchUsers();
+                    })
+                  }
                 >
                   Decline
                 </button>
