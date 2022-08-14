@@ -6,7 +6,7 @@ function CommentForm(props) {
   let handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch(`http://localhost:5000/api/post/${props.postId}/comment`, {
+      await fetch(`/api/post/${props.postId}/comment`, {
         method: 'POST',
         mode: 'cors',
         headers: {
