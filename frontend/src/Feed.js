@@ -56,7 +56,6 @@ function Feed() {
       });
       let resJson = await res.json();
       setUsers(resJson);
-      console.log(resJson);
     } catch (err) {
       console.log(err);
     }

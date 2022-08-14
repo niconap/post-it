@@ -122,6 +122,10 @@ input[type="submit"]:active, button:active {
   background-color: var(--focusgreen);
 }
 
+.userlistbuttons {
+  display: inline-block;
+}
+
 .like, .commentbutton, .delete, input[type="submit"], button {
   border-radius: 6px;
   background-color: var(--white);

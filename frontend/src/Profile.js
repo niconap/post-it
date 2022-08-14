@@ -103,6 +103,18 @@ function Profile() {
     fetchUserData();
   };
 
+  const declineRequest = async () => {
+    await fetch(`http://localhost:5000/api/user/friend/decline/${user._id}`, {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token'),
+      },
+    });
+    fetchUserData();
+  };
+
   if (isLoaded) {
     const isFriend = user.friends.filter((friend) => {
       return friend._id === localStorage.getItem('user');
@@ -144,6 +156,9 @@ function Profile() {
             <span>{user.firstName} sent you a friend request </span>
             <button className="greenbutton" onClick={acceptRequest}>
               Accept
+            </button>
+            <button className="redbutton" onClick={declineRequest}>
+              Decline
             </button>
           </div>
         ) : (

@@ -1,7 +1,10 @@
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import uniqid from 'uniqid';
 
 function UserList(props) {
+  const [requests, setRequests] = useState([]);
+
   const handleRevokeRequest = async (id) => {
     try {
       await fetch(
@@ -44,8 +47,56 @@ function UserList(props) {
     );
   });
 
+  const fetchRequests = async () => {
+    let res = await fetch(`http://localhost:5000/api/user/requests`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token'),
+      },
+    });
+    let resJson = await res.json();
+    let array = [];
+    resJson.requests.forEach((request) => {
+      array.push(request._id);
+    });
+    setRequests(array);
+    props.fetchUsers();
+  };
+
+  const acceptRequest = async (id) => {
+    await fetch(`http://localhost:5000/api/user/friend/accept/${id}`, {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token'),
+      },
+    });
+    fetchRequests();
+    props.fetchUsers();
+  };
+
+  const declineRequest = async (id) => {
+    await fetch(`http://localhost:5000/api/user/friend/decline/${id}`, {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token'),
+      },
+    });
+    fetchRequests();
+    props.fetchUsers();
+  };
+
+  useEffect(() => {
+    fetchRequests();
+  }, []);
+
   return (
-    <div class="users">
+    <div className="users">
       <h3>Find new friends!</h3>
       {users.map((user) => {
         return (
@@ -61,7 +112,8 @@ function UserList(props) {
             </span>
             {user._id === localStorage.getItem('user') ||
             user.requests.indexOf(localStorage.getItem('user')) >= 0 ||
-            user.requests.includes(localStorage.getItem('user')) ? (
+            user.requests.includes(localStorage.getItem('user')) ||
+            requests.includes(user._id) ? (
               ''
             ) : (
               <button onClick={() => handleFriendRequest(user._id)}>
@@ -70,9 +122,30 @@ function UserList(props) {
             )}
             {user._id !== localStorage.getItem('user') &&
             user.requests.indexOf(localStorage.getItem('user')) >= 0 ? (
-              <button onClick={() => handleRevokeRequest(user._id)}>
+              <button
+                className="redbutton"
+                onClick={() => handleRevokeRequest(user._id)}
+              >
                 Revoke request
               </button>
+            ) : (
+              ''
+            )}
+            {requests.includes(user._id) ? (
+              <div className="userlistbuttons">
+                <button
+                  className="greenbutton"
+                  onClick={() => acceptRequest(user._id)}
+                >
+                  Accept
+                </button>
+                <button
+                  className="redbutton"
+                  onClick={() => declineRequest(user._id)}
+                >
+                  Decline
+                </button>
+              </div>
             ) : (
               ''
             )}
