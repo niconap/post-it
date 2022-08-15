@@ -94,13 +94,14 @@ app.use(
   })
 );
 app.use(passport.session());
-app.use(express.static(path.join(__dirname, 'build')));
 
 app.use('/api', indexRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
-app.use('/', (req, res) => {
+app.use('/images', express.static(process.cwd() + '/images'));
+app.use(express.static(path.join(__dirname, 'build')));
+app.use('/frontend', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
