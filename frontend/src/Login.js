@@ -28,7 +28,7 @@ function Login() {
         setPassword('');
         localStorage.setItem('token', `Bearer ${resJson.token}`);
         localStorage.setItem('user', resJson.user);
-        navigate('../', { replace: true });
+        navigate('../frontend', { replace: true });
         window.location.reload();
       } else {
         setMessage(resJson.info.message);
