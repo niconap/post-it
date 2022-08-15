@@ -70,6 +70,7 @@ function Profile(props) {
         },
         body: selectedImage,
       });
+      fetchUserData();
     } catch (err) {
       console.log(err);
     }
@@ -88,6 +89,13 @@ function Profile(props) {
       <div id="profile">
         <h1>{user.firstName + ' ' + user.lastName}</h1>
         <h3>{user.username}</h3>
+        <img
+          id="profilepicture"
+          src={`http://localhost:5000${user.profilePicture}`}
+          alt="profile"
+          width={100}
+          height={100}
+        />
         {user._id === localStorage.getItem('user') ||
         user.requests.indexOf(localStorage.getItem('user')) >= 0 ||
         isFriend.length > 0 ||

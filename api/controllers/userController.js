@@ -74,7 +74,9 @@ exports.get_user = function (req, res, next) {
     {
       user: function (callback) {
         User.findById(req.params.id)
-          .select('firstName lastName requests friends username friends')
+          .select(
+            'firstName lastName requests friends username friends profilePicture'
+          )
           .populate('friends', 'firstName username')
           .exec(callback);
       },
