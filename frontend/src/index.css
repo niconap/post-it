@@ -127,7 +127,7 @@ input[type="submit"]:active, button:active {
   display: inline-block;
 }
 
-.like, .commentbutton, .delete, input[type="submit"], button {
+.like, .commentbutton, .delete, input[type="submit"], button, input[type=file]::file-selector-button {
   border-radius: 6px;
   background-color: var(--white);
   border: none;
@@ -139,17 +139,17 @@ input[type="submit"]:active, button:active {
   transition: color 0.2s ease, background-color 0.2s ease;
 }
 
-input[type="submit"], button {
+input[type="submit"], button, input[type=file]::file-selector-button {
   background-color: var(--blue);
   color: var(--white);
 }
 
-.like:hover, .commentbutton:hover, .delete:hover {
+.like:hover, .commentbutton:hover, .delete:hover, input[type=file]::file-selector-button:hover {
   background-color: var(--offwhite);
   cursor: pointer;
 }
 
-input[type="submit"]:hover, button:hover {
+input[type="submit"]:hover, button:hover, input[type=file]::file-selector-button:hover {
   background-color: var(--focusblue);
   cursor: pointer;
 }
@@ -324,4 +324,21 @@ ul li {
 
 .buttons {
   text-align: center;
+}
+
+.buttonlabel {
+  margin-right: 0.5rem;
+}
+
+#profilebutton button {
+  display: block;
+}
+
+#profilepicture {
+  border-radius: 50px;
+  margin-right: 2rem;
+}
+
+#profiletitle {
+  display: inline-block;
 }

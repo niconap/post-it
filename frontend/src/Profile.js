@@ -87,8 +87,6 @@ function Profile(props) {
 
     return (
       <div id="profile">
-        <h1>{user.firstName + ' ' + user.lastName}</h1>
-        <h3>{user.username}</h3>
         {user.profilePicture ? (
           <img
             id="profilepicture"
@@ -98,44 +96,59 @@ function Profile(props) {
             height={100}
           />
         ) : (
-          ''
+          <img
+            id="profilepicture"
+            src={`http://localhost:5000/images/default.jpg`}
+            alt="profile"
+            width={100}
+            height={100}
+          />
         )}
-        {user._id === localStorage.getItem('user') ||
-        user.requests.indexOf(localStorage.getItem('user')) >= 0 ||
-        isFriend.length > 0 ||
-        isRequested.length > 0 ? (
-          ''
-        ) : (
-          <button
-            onClick={() => props.sendFriendRequest(user._id, fetchUserData)}
-          >
-            Add friend
-          </button>
-        )}
-        {user._id !== localStorage.getItem('user') &&
-        user.requests.indexOf(localStorage.getItem('user')) >= 0 ? (
-          <button
-            className="redbutton"
-            onClick={() => props.revokeRequest(user._id, fetchUserData)}
-          >
-            Revoke request
-          </button>
-        ) : (
-          ''
-        )}
-        {isFriend.length > 0 ? (
-          <button className="redbutton" onClick={handleRemoveFriend}>
-            Remove friend
-          </button>
-        ) : (
-          ''
-        )}
+        <div id="profiletitle">
+          <h1>{user.firstName + ' ' + user.lastName}</h1>
+          <h3>{user.username}</h3>
+        </div>
+        <div id="profilebutton">
+          {user._id === localStorage.getItem('user') ||
+          user.requests.indexOf(localStorage.getItem('user')) >= 0 ||
+          isFriend.length > 0 ||
+          isRequested.length > 0 ? (
+            ''
+          ) : (
+            <button
+              onClick={() => props.sendFriendRequest(user._id, fetchUserData)}
+            >
+              Add friend
+            </button>
+          )}
+          {user._id !== localStorage.getItem('user') &&
+          user.requests.indexOf(localStorage.getItem('user')) >= 0 ? (
+            <button
+              className="redbutton"
+              onClick={() => props.revokeRequest(user._id, fetchUserData)}
+            >
+              Revoke request
+            </button>
+          ) : (
+            ''
+          )}
+          {isFriend.length > 0 ? (
+            <button className="redbutton" onClick={handleRemoveFriend}>
+              Remove friend
+            </button>
+          ) : (
+            ''
+          )}
+        </div>
         {user._id === localStorage.getItem('user') ? (
           <form
             encType="multipart/form-data"
             name="pictureupload"
             onSubmit={uploadImage}
           >
+            <label className="buttonlabel" for="profilepicture">
+              Upload profile picture
+            </label>
             <input
               type="file"
               name="profilepicture"
