@@ -83,7 +83,7 @@ function PostPage() {
           <p>{post.content}</p>
           <span>
             Written by: {post.user.firstName} (
-            <NavLink to={`/profile?id=${post.user._id}`}>
+            <NavLink to={`/frontend/profile?id=${post.user._id}`}>
               {post.user.username}
             </NavLink>
             ) on{' '}
@@ -144,7 +144,7 @@ function PostPage() {
                     <div key={uniqid()} className="likeli">
                       <span>
                         {like.firstName} (
-                        <NavLink to={`/profile?id=${like._id}`}>
+                        <NavLink to={`/frontend/profile?id=${like._id}`}>
                           {like.username}
                         </NavLink>
                         )

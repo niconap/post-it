@@ -38,7 +38,7 @@ function Comment(props) {
     <div className="comment">
       <div className="commentcontent">
         <span>
-          <NavLink to={`/profile?id=${props.comment.user}`}>
+          <NavLink to={`/frontend/profile?id=${props.comment.user}`}>
             {props.comment.username}
           </NavLink>
           :

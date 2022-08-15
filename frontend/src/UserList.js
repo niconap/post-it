@@ -43,7 +43,7 @@ function UserList(props) {
             <span>
               {user.firstName} (
               {
-                <NavLink to={`/profile?id=${user._id}`}>
+                <NavLink to={`/frontend/profile?id=${user._id}`}>
                   {user.username}
                 </NavLink>
               }

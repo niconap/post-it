@@ -36,7 +36,7 @@ function Signup() {
         setEmail('');
         setUsername('');
         setPassword('');
-        navigate('../?signup=true', { replace: true });
+        navigate('../frontend/?signup=true', { replace: true });
       } else {
         setErrors(resJson.errors);
       }
@@ -93,7 +93,7 @@ function Signup() {
         </ul>
       </form>
       <p>
-        Already have an account? Log in <a href="/">here</a>
+        Already have an account? Log in <a href="/frontend">here</a>
       </p>
     </div>
   );

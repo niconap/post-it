@@ -37,7 +37,7 @@ function RequestsPage(props) {
                 <span>
                   {request.firstName} (
                   {
-                    <NavLink to={`/profile?id=${request._id}`}>
+                    <NavLink to={`/frontend/profile?id=${request._id}`}>
                       {request.username}
                     </NavLink>
                   }

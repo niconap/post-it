@@ -82,7 +82,7 @@ function Post(props) {
         {typeof post.user === 'object' ? (
           <span>
             Written by: {post.user.firstName} (
-            <NavLink to={`/profile?id=${post.user._id}`}>
+            <NavLink to={`/frontend/profile?id=${post.user._id}`}>
               {post.user.username}
             </NavLink>
             ) on{' '}
@@ -124,7 +124,7 @@ function Post(props) {
           )}
         </div>
         <div className="commentbutton">
-          <NavLink to={`/post?id=${post._id}`}>
+          <NavLink to={`/frontend/post?id=${post._id}`}>
             <ModeCommentOutlinedIcon fontSize="small" />
           </NavLink>
         </div>

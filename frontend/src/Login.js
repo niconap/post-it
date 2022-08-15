@@ -57,7 +57,7 @@ function Login() {
         setPassword('');
         localStorage.setItem('token', `Bearer ${resJson.token}`);
         localStorage.setItem('user', resJson.user);
-        navigate('../', { replace: true });
+        navigate('../frontend', { replace: true });
         window.location.reload();
       } else {
         setMessage(resJson.info.message);
@@ -93,7 +93,7 @@ function Login() {
         <span id="message">{message}</span>
       </form>
       <p>
-        Don't have an account? Sign up <a href="signup">here</a>
+        Don't have an account? Sign up <a href="/frontend/signup">here</a>
       </p>
       <button onClick={dummyLogin}>Use dummy account</button>
     </div>

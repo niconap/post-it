@@ -83,7 +83,7 @@ export default function App() {
         <Routes>
           <Route
             exact
-            path="/profile"
+            path="/frontend/profile"
             element={
               <Profile
                 acceptRequest={acceptRequest}
@@ -95,7 +95,7 @@ export default function App() {
           />
           <Route
             exact
-            path="requests"
+            path="/frontend/requests"
             element={
               <RequestsPage
                 acceptRequest={acceptRequest}
@@ -103,9 +103,9 @@ export default function App() {
               />
             }
           />
-          <Route path="/post" element={<PostPage />} />
+          <Route path="/frontend/post" element={<PostPage />} />
           <Route
-            path="*"
+            path="/frontend/*"
             element={
               <Feed
                 acceptRequest={acceptRequest}
@@ -123,8 +123,8 @@ export default function App() {
       <div className="bluebackground">
         <BrowserRouter>
           <Routes>
-            <Route exact path="/signup" element={<Signup />} />
-            <Route path="*" element={<Login />} />
+            <Route exact path="/frontend/signup" element={<Signup />} />
+            <Route path="/frontend/*" element={<Login />} />
           </Routes>
         </BrowserRouter>
       </div>

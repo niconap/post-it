@@ -9,14 +9,16 @@ function Nav() {
 
   return (
     <div id="nav">
-      <NavLink to="/">
+      <NavLink to="/frontend">
         <h1 id="maintitle">Post it!</h1>
       </NavLink>
       <div id="navlinks">
-        <NavLink id="bell" to="requests">
+        <NavLink id="bell" to="/frontend/requests">
           <NotificationsIcon />
         </NavLink>
-        <a href={'/profile?id=' + localStorage.getItem('user')}>My profile</a>
+        <a href={'/frontend/profile?id=' + localStorage.getItem('user')}>
+          My profile
+        </a>
         <span id="logout" onClick={logOut}>
           Log out
         </span>

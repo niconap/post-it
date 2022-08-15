@@ -204,7 +204,7 @@ function Profile(props) {
                   <li key={uniqid()}>
                     {friend.firstName} (
                     {
-                      <a href={`/profile?id=${friend._id}`}>
+                      <a href={`/frontend/profile?id=${friend._id}`}>
                         {friend.username}
                       </a>
                     }
