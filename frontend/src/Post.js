@@ -29,7 +29,7 @@ function Post(props) {
 
   const handleDelete = async () => {
     try {
-      await fetch(`http://localhost:5000/api/post/${post._id}`, {
+      await fetch(`/api/post/${post._id}`, {
         method: 'DELETE',
         mode: 'cors',
         headers: {
@@ -46,7 +46,7 @@ function Post(props) {
   const handleLike = async () => {
     if (checkLike()) {
       try {
-        await fetch(`http://localhost:5000/api/post/like/${post._id}`, {
+        await fetch(`/api/post/like/${post._id}`, {
           method: 'DELETE',
           mode: 'cors',
           headers: {
@@ -59,7 +59,7 @@ function Post(props) {
       }
     } else {
       try {
-        await fetch(`http://localhost:5000/api/post/like/${post._id}`, {
+        await fetch(`/api/post/like/${post._id}`, {
           method: 'POST',
           mode: 'cors',
           headers: {
@@ -81,7 +81,7 @@ function Post(props) {
       {post.user.profilePicture ? (
         <img
           id="profilepicture"
-          src={`http://localhost:5000${post.user.profilePicture}`}
+          src={`${post.user.profilePicture}`}
           alt="profile"
           width={30}
           height={30}
@@ -89,7 +89,7 @@ function Post(props) {
       ) : (
         <img
           id="profilepicture"
-          src={`http://localhost:5000/images/default.jpg`}
+          src={`/images/default.jpg`}
           alt="profile"
           width={30}
           height={30}

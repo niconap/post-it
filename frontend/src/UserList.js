@@ -13,7 +13,7 @@ function UserList(props) {
   });
 
   const fetchRequests = async () => {
-    let res = await fetch(`http://localhost:5000/api/user/requests`, {
+    let res = await fetch(`/api/user/requests`, {
       method: 'GET',
       mode: 'cors',
       headers: {
@@ -43,7 +43,7 @@ function UserList(props) {
             {user.profilePicture ? (
               <img
                 id="profilepicture"
-                src={`http://localhost:5000${user.profilePicture}`}
+                src={`${user.profilePicture}`}
                 alt="profile"
                 width={30}
                 height={30}
@@ -51,7 +51,7 @@ function UserList(props) {
             ) : (
               <img
                 id="profilepicture"
-                src={`http://localhost:5000/images/default.jpg`}
+                src={`/images/default.jpg`}
                 alt="profile"
                 width={30}
                 height={30}
