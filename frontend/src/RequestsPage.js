@@ -7,7 +7,7 @@ function RequestsPage(props) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const fetchRequests = async () => {
-    let res = await fetch(`/api/user/requests`, {
+    let res = await fetch(`http://localhost:5000/api/user/requests`, {
       method: 'GET',
       mode: 'cors',
       headers: {

@@ -29,7 +29,7 @@ function Post(props) {
 
   const handleDelete = async () => {
     try {
-      await fetch(`/api/post/${post._id}`, {
+      await fetch(`http://localhost:5000/api/post/${post._id}`, {
         method: 'DELETE',
         mode: 'cors',
         headers: {
@@ -46,7 +46,7 @@ function Post(props) {
   const handleLike = async () => {
     if (checkLike()) {
       try {
-        await fetch(`/api/post/like/${post._id}`, {
+        await fetch(`http://localhost:5000/api/post/like/${post._id}`, {
           method: 'DELETE',
           mode: 'cors',
           headers: {
@@ -59,7 +59,7 @@ function Post(props) {
       }
     } else {
       try {
-        await fetch(`/api/post/like/${post._id}`, {
+        await fetch(`http://localhost:5000/api/post/like/${post._id}`, {
           method: 'POST',
           mode: 'cors',
           headers: {
