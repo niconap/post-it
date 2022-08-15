@@ -40,6 +40,23 @@ function UserList(props) {
       {users.map((user) => {
         return (
           <div key={uniqid()} className="user">
+            {user.profilePicture ? (
+              <img
+                id="profilepicture"
+                src={`http://localhost:5000${user.profilePicture}`}
+                alt="profile"
+                width={30}
+                height={30}
+              />
+            ) : (
+              <img
+                id="profilepicture"
+                src={`http://localhost:5000/images/default.jpg`}
+                alt="profile"
+                width={30}
+                height={30}
+              />
+            )}
             <span>
               {user.firstName} (
               {

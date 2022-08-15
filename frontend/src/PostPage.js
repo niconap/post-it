@@ -81,24 +81,43 @@ function PostPage() {
         <div key={uniqid()} className="post">
           <h2>{post.title}</h2>
           <p>{post.content}</p>
-          <span>
-            Written by: {post.user.firstName} (
-            <NavLink to={`/frontend/profile?id=${post.user._id}`}>
-              {post.user.username}
-            </NavLink>
-            ) on{' '}
-            {date.toLocaleDateString(undefined, {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric',
-              hour: 'numeric',
-              minute: 'numeric',
-            })}
-          </span>
-          <div className="likes">
-            {post.likes.length === 1
-              ? 'Liked by 1 person'
-              : `Liked by ${post.likes.length} people`}
+          {post.user.profilePicture ? (
+            <img
+              id="profilepicture"
+              src={`http://localhost:5000${post.user.profilePicture}`}
+              alt="profile"
+              width={30}
+              height={30}
+            />
+          ) : (
+            <img
+              id="profilepicture"
+              src={`http://localhost:5000/images/default.jpg`}
+              alt="profile"
+              width={30}
+              height={30}
+            />
+          )}
+          <div className="postinfo">
+            <span>
+              Written by: {post.user.firstName} (
+              <NavLink to={`/frontend/profile?id=${post.user._id}`}>
+                {post.user.username}
+              </NavLink>
+              ) on{' '}
+              {date.toLocaleDateString(undefined, {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+              })}
+            </span>
+            <div className="likes">
+              {post.likes.length === 1
+                ? 'Liked by 1 person'
+                : `Liked by ${post.likes.length} people`}
+            </div>
           </div>
           <div className="postpagebuttons">
             <div className="like" onClick={handleLike}>

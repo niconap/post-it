@@ -78,6 +78,23 @@ function Post(props) {
     <div key={uniqid()} className="post">
       <h3>{post.title}</h3>
       <p>{post.content}</p>
+      {post.user.profilePicture ? (
+        <img
+          id="profilepicture"
+          src={`http://localhost:5000${post.user.profilePicture}`}
+          alt="profile"
+          width={30}
+          height={30}
+        />
+      ) : (
+        <img
+          id="profilepicture"
+          src={`http://localhost:5000/images/default.jpg`}
+          alt="profile"
+          width={30}
+          height={30}
+        />
+      )}
       <div className="postinfo">
         {typeof post.user === 'object' ? (
           <span>
