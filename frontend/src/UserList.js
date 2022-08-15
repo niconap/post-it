@@ -13,7 +13,7 @@ function UserList(props) {
   });
 
   const fetchRequests = async () => {
-    let res = await fetch(`/api/user/requests`, {
+    let res = await fetch(`http://localhost:5000/api/user/requests`, {
       method: 'GET',
       mode: 'cors',
       headers: {
