@@ -269,3 +269,33 @@ exports.update_user = [
     );
   },
 ];
+
+exports.image_upload = [
+  (req, res, next) => {
+    jwt.verify(req.token, process.env.SESSION_SECRET, function (err, authData) {
+      if (err) {
+        res.sendStatus(403);
+        return;
+      } else {
+        req.authData = authData;
+        next();
+      }
+    });
+  },
+
+  (req, res, next) => {
+    User.findByIdAndUpdate(
+      req.authData._id,
+      {
+        profilePicture: '/images/' + req.file.filename,
+      },
+      function (err, user) {
+        if (err) return next(err);
+        res.json({
+          message: 'Profile picture uploaded!',
+          user: user,
+        });
+      }
+    );
+  },
+];

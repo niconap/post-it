@@ -21,6 +21,9 @@ const cors = require('cors');
 var User = require('./models/user');
 
 var app = express();
+app.use(cors());
+app.use(express.json({ limit: '50mb', extended: true }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 dev_db_url = process.env.CONNECTION_STRING;
 var mongoDB = dev_db_url;
@@ -91,7 +94,6 @@ app.use(
   })
 );
 app.use(passport.session());
-app.use(cors());
 app.use(express.static(path.join(__dirname, 'build')));
 
 app.use('/api', indexRouter);

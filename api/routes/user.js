@@ -1,10 +1,12 @@
 const express = require('express');
 var router = express.Router();
+var multer = require('multer');
 const {
   delete_user,
   update_user,
   get_user,
   get_users,
+  image_upload,
 } = require('../controllers/userController');
 const {
   get_friend_requests,
@@ -14,6 +16,19 @@ const {
   friend_decline_user,
   friend_remove,
 } = require('../controllers/friendController');
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './images');
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+router.post('/picture', verifyToken, upload.single('image'), image_upload);
 
 router.get('/get/:id', get_user);
 

@@ -7,6 +7,7 @@ function Profile(props) {
   const [searchParams] = useSearchParams();
   const [isLoaded, setIsLoaded] = useState(false);
   const [user, setUser] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
   const [requests, setRequests] = useState([]);
 
   const fetchUserData = async () => {
@@ -56,6 +57,24 @@ function Profile(props) {
     }
   };
 
+  const uploadImage = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('image', selectedImage);
+    try {
+      await fetch(`http://localhost:5000/api/user/picture`, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+        body: selectedImage,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   if (isLoaded) {
     const isFriend = user.friends.filter((friend) => {
       return friend._id === localStorage.getItem('user');
@@ -100,8 +119,22 @@ function Profile(props) {
           ''
         )}
         {user._id === localStorage.getItem('user') ? (
-          <form enctype="multipart/form-data">
-            <input type="file" name="profilepicture" />
+          <form
+            encType="multipart/form-data"
+            name="pictureupload"
+            onSubmit={uploadImage}
+          >
+            <input
+              type="file"
+              name="profilepicture"
+              required
+              onChange={(e) => {
+                var formData = new FormData();
+                formData.append('image', e.target.files[0]);
+                setSelectedImage(formData);
+              }}
+            />
+            <input type="submit" value="Upload" />
           </form>
         ) : (
           ''
