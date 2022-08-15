@@ -10,4 +10,4 @@ In order to access Post it! you'll need to create an account or you can use the 
 Post it! was made using Node.js and React. Both the Node.js api and the React frontend can be found in this repository. 
 
 ###Where can I find Post it!?
-Post it! can be found through this link: (https://post-it-odinbook.herokuapp.com/frontend)[Post it!] 
+Post it! can be found through this link: [Post it!](https://post-it-odinbook.herokuapp.com/frontend)
