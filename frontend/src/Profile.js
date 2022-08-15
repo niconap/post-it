@@ -191,6 +191,8 @@ function Profile(props) {
                 .reverse()
                 .map((post) => {
                   let date = new Date(post.timeStamp);
+                  post.user = user;
+                  console.log(post.user);
                   return (
                     <Post
                       key={uniqid()}

@@ -90,7 +90,10 @@ exports.post_get_general = function (req, res, next) {
     {
       posts: function (callback) {
         Post.find()
-          .populate({ path: 'user', select: 'username firstName lastName' })
+          .populate({
+            path: 'user',
+            select: 'username firstName lastName profilePicture',
+          })
           .populate('comments')
           .populate('likes')
           .exec(callback);
@@ -155,7 +158,10 @@ exports.post_get_friends = [
               },
             ],
           })
-            .populate({ path: 'user', select: 'username firstName lastName' })
+            .populate({
+              path: 'user',
+              select: 'username firstName lastName profilePicture',
+            })
             .populate('comments')
             .populate('likes')
             .exec(callback);
@@ -312,7 +318,10 @@ exports.post_get_single = function (req, res, next) {
     {
       post: function (callback) {
         Post.findOne({ _id: req.params.id })
-          .populate({ path: 'user', select: 'username firstName lastName' })
+          .populate({
+            path: 'user',
+            select: 'username firstName lastName profilePicture',
+          })
           .populate('comments')
           .populate('likes')
           .exec(callback);

@@ -103,7 +103,9 @@ exports.get_users = function (req, res, next) {
     {
       users: function (callback) {
         User.find()
-          .select('firstName lastName requests friends username friends')
+          .select(
+            'firstName lastName requests friends username friends profilePicture'
+          )
           .exec(callback);
       },
     },
