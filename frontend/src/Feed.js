@@ -67,6 +67,8 @@ function Feed(props) {
   }, []);
 
   if (isLoaded) {
+    let generalPostNumber = 0;
+    let friendPostNumber = 0;
     return (
       <div id="container">
         <span>General </span>
@@ -96,6 +98,7 @@ function Feed(props) {
                   .reverse()
                   .map((post) => {
                     let date = new Date(post.timeStamp);
+                    generalPostNumber++;
                     return (
                       <Post
                         key={uniqid()}
@@ -103,6 +106,7 @@ function Feed(props) {
                         date={date}
                         post={post}
                         mode={mode}
+                        postNumber={generalPostNumber}
                       />
                     );
                   })
@@ -111,6 +115,7 @@ function Feed(props) {
                   .reverse()
                   .map((post) => {
                     let date = new Date(post.timeStamp);
+                    friendPostNumber++;
                     return (
                       <Post
                         key={uniqid()}
@@ -118,6 +123,7 @@ function Feed(props) {
                         date={date}
                         post={post}
                         mode={mode}
+                        postNumber={friendPostNumber}
                       />
                     );
                   })}

@@ -75,7 +75,10 @@ function Post(props) {
   };
 
   return (
-    <div key={uniqid()} className="post">
+    <div
+      key={uniqid()}
+      className={props.postNumber % 2 === 0 ? 'post post2' : 'post post1'}
+    >
       <h3>{post.title}</h3>
       <p>{post.content}</p>
       {post.user.profilePicture ? (
@@ -134,7 +137,7 @@ function Post(props) {
           {checkLike() ? (
             <FavoriteOutlinedIcon
               fontSize="small"
-              sx={{ color: 'rgb(255, 73, 73)' }}
+              sx={{ color: 'rgb(255, 209, 0)' }}
             />
           ) : (
             <FavoriteBorderOutlinedIcon fontSize="small" />

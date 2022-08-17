@@ -146,7 +146,7 @@ function Profile(props) {
             name="pictureupload"
             onSubmit={uploadImage}
           >
-            <label className="buttonlabel" for="profilepicture">
+            <label className="buttonlabel" htmlFor="profilepicture">
               Upload profile picture
             </label>
             <input
@@ -192,7 +192,6 @@ function Profile(props) {
                 .map((post) => {
                   let date = new Date(post.timeStamp);
                   post.user = user;
-                  console.log(post.user);
                   return (
                     <Post
                       key={uniqid()}

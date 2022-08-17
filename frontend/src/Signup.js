@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import uniqid from 'uniqid';
+import Logo from './post_it_logo.png';
 
 function Signup() {
   let navigate = useNavigate();
@@ -47,7 +48,7 @@ function Signup() {
 
   return (
     <div id="signup">
-      <h1>Post it!</h1>
+      <img src={Logo} alt="logo" className="logo" />
       <form onSubmit={handleSubmit} name="signup">
         <input
           type="text"

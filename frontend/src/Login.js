@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Logo from './post_it_logo.png';
 
 function Login() {
   let navigate = useNavigate();
@@ -69,7 +70,7 @@ function Login() {
 
   return (
     <div id="login">
-      <h1>Post it!</h1>
+      <img src={Logo} alt="logo" className="logo" />
       {signup === true ? (
         <p>You successfully created an account, please log in to continue</p>
       ) : null}

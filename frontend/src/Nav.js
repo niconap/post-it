@@ -9,8 +9,8 @@ function Nav() {
 
   return (
     <div id="nav">
-      <NavLink to="/frontend">
-        <h1 id="maintitle">Post it!</h1>
+      <NavLink to="/frontend" id="maintitle">
+        <h1>Post it!</h1>
       </NavLink>
       <div id="navlinks">
         <NavLink id="bell" to="/frontend/requests">
