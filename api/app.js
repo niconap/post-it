@@ -12,6 +12,7 @@ const ExtractJWT = passportJWT.ExtractJwt;
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const mongoose = require('mongoose');
+const helmet = require('helmet');
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
@@ -24,6 +25,7 @@ var app = express();
 app.use(cors());
 app.use(express.json({ limit: '50mb', extended: true }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(helmet());
 
 dev_db_url = process.env.CONNECTION_STRING;
 var mongoDB = dev_db_url;
