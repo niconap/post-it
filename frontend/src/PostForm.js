@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import uniqid from 'uniqid';
 
-function PostForm() {
+function PostForm(props) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [errors, setErrors] = useState([]);
@@ -25,7 +25,7 @@ function PostForm() {
       if (resJson.errors) {
         setErrors(resJson.errors);
       } else {
-        window.location.reload();
+        props.fetchPosts();
       }
     } catch (err) {
       console.log(err);
@@ -35,25 +35,33 @@ function PostForm() {
   return (
     <div id="postform">
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="title"
-          placeholder="Title..."
-          value={title}
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-        />
-        <input
-          type="text"
-          name="content"
-          placeholder="Content..."
-          value={content}
-          onChange={(e) => {
-            setContent(e.target.value);
-          }}
-        />
-        <input type="submit" value="Post" />
+        <div className="formgroup">
+          <span className="counter">{title.length} / 40</span>
+          <input
+            type="text"
+            name="title"
+            placeholder="Title..."
+            value={title}
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+          />
+        </div>
+        <div className="formgroup">
+          <span className="counter">{content.length} / 200</span>
+          <input
+            type="text"
+            name="content"
+            placeholder="Content..."
+            value={content}
+            onChange={(e) => {
+              setContent(e.target.value);
+            }}
+          />
+        </div>
+        <div className="formgroup">
+          <input type="submit" id="postsubmit" value="Post" />
+        </div>
       </form>
       <ul>
         {errors.map((error) => {

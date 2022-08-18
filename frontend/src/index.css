@@ -101,9 +101,12 @@ input:checked + .slider:before {
   border: 1px solid var(--bordergray);
   border-radius: 5px;
   padding: 3px;
-  display: block;
   margin-top: 1rem;
   box-shadow: var(--shadowgray) 0px 0px 3px;
+}
+
+.deleteconfirmation {
+  display: block;
 }
 
 input[type="text"], input[type="password"], input[type="email"] {
@@ -395,4 +398,14 @@ ul li {
   width: 7rem;
   height: 7rem;
   margin: 1rem;
+}
+
+.counter {
+  display: block;
+  font-size: 12px;
+  color: var(--bordergray);
+}
+
+.formgroup {
+  display: inline-block;
 }

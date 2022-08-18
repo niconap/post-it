@@ -90,7 +90,7 @@ function Feed(props) {
           <InfoOutlinedIcon fontSize="small" sx={{ color: 'gray' }} />
         </div>
         <div id="feed">
-          <PostForm />
+          <PostForm fetchPosts={fetchPosts} />
           <div className="posts">
             {mode === 'general'
               ? generalPosts
