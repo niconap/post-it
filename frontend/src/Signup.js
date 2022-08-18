@@ -89,7 +89,11 @@ function Signup() {
         <input type="submit" value="Sign up" />
         <ul>
           {errors.map((element) => {
-            return <li key={uniqid()}>{element.msg}</li>;
+            return (
+              <li className="inputerror" key={uniqid()}>
+                {element.msg}
+              </li>
+            );
           })}
         </ul>
       </form>

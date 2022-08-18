@@ -310,7 +310,7 @@ a {
   text-align: center;
   position: absolute;
   left: 50%;
-  top: 40%;
+  top: 50%;
   transform: translate(-50%, -50%);
   border-radius: 20px;
 }
@@ -443,4 +443,9 @@ footer span, footer a {
 #disclaimer {
   padding: 1rem;
   width: 50%;
+}
+
+#message {
+  display: block;
+  color: var(--red);
 }
