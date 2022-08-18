@@ -3,6 +3,7 @@
   --yellow: rgb(255, 209, 0);
   --focusyellow: rgb(255, 190, 0);
   --shadowyellow: rgb(255, 180, 0);
+  --postfocusyellow: rgb(255, 246, 218);
   --red: rgb(255, 73, 73);
   --palered: rgb(255, 232, 232);
   --focusred: rgb(230, 29, 29);
@@ -12,7 +13,7 @@
   --offwhite: rgb(240, 240, 240);
   --focuswhite: rgb(235, 235, 235);
   --activewhite: rgb(220, 220, 220);
-  --shadowgray: rgb(143, 143, 143);
+  --shadowgray: rgb(168, 168, 168);
   --bordergray: rgb(155, 155, 155);
   --black: rgb(19, 19, 19);
 }
@@ -151,7 +152,7 @@ input[type="submit"]:active, button:active {
   border-radius: 6px;
   background-color: var(--paleyellow);
   border: none;
-  min-width: 4rem;
+  width: calc(100% / 3 - 1rem);
   height: fit-content;
   display: inline-block;
   text-align: center;
@@ -161,12 +162,13 @@ input[type="submit"]:active, button:active {
 
 input[type="submit"], button, input[type=file]::file-selector-button {
   background-color: var(--yellow);
+  width: fit-content;
   color: var(--black);
   font-weight: bold;
 }
 
-.like:hover, .commentbutton:hover, .delete:hover, input[type=file]::file-selector-button:hover {
-  background-color: var(--focusyellow);
+.like:hover, .commentbutton:hover, .delete:hover {
+  background-color: var(--postfocusyellow);
   cursor: pointer;
 }
 
@@ -294,7 +296,7 @@ a {
 .users {
   grid-area: users;
   background-color: var(--paleyellow);
-  box-shadow: var(--shadowgray) 0px 0px 10px;
+  box-shadow: var(--shadowgray) 0px 20px 20px;
   width: 90%;
   padding: 1.5rem;
   margin: 2.5rem 0;
@@ -364,7 +366,7 @@ ul li {
 
 .post {
   word-wrap: break-word;
-  box-shadow: var(--shadowgray) 0px 0px 10px;
+  box-shadow: var(--shadowgray) 0px 20px 20px;
   aspect-ratio: 1 / 1;
   padding: 1.5rem;
   margin: 1rem;
@@ -451,4 +453,10 @@ footer span, footer a {
 #message {
   display: block;
   color: var(--red);
+}
+
+.buttons {
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
 }
