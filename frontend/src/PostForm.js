@@ -8,6 +8,7 @@ function PostForm(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors([]);
     try {
       let res = await fetch('http://localhost:5000/api/post/', {
         method: 'POST',
@@ -36,8 +37,17 @@ function PostForm(props) {
     <div id="postform">
       <form onSubmit={handleSubmit}>
         <div className="formgroup">
-          <span className="counter">{title.length} / 40</span>
+          <span
+            className={`counter${
+              title.length > 40 || title.length === 1 ? ' redcounter' : ''
+            }`}
+          >
+            {title.length} / 40
+          </span>
           <input
+            className={`${
+              title.length > 40 || title.length === 1 ? 'redinput' : ''
+            }`}
             type="text"
             name="title"
             placeholder="Title..."
@@ -48,8 +58,17 @@ function PostForm(props) {
           />
         </div>
         <div className="formgroup">
-          <span className="counter">{content.length} / 200</span>
+          <span
+            className={`counter${
+              content.length > 215 || content.length === 1 ? ' redcounter' : ''
+            }`}
+          >
+            {content.length} / 215
+          </span>
           <input
+            className={`${
+              content.length > 215 || content.length === 1 ? 'redinput' : ''
+            }`}
             type="text"
             name="content"
             placeholder="Content..."
@@ -65,7 +84,11 @@ function PostForm(props) {
       </form>
       <ul>
         {errors.map((error) => {
-          return <li key={uniqid()}>{error.msg}</li>;
+          return (
+            <li className="inputerror" key={uniqid()}>
+              {error.msg}
+            </li>
+          );
         })}
       </ul>
     </div>

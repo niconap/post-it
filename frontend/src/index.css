@@ -5,6 +5,7 @@
   --shadowyellow: rgb(255, 180, 0);
   --focusyellow: rgb(255, 246, 218);
   --red: rgb(255, 73, 73);
+  --palered: rgb(255, 232, 232);
   --focusred: rgb(230, 29, 29);
   --green: rgb(48, 211, 33);
   --focusgreen: rgb(39, 177, 27);
@@ -408,4 +409,17 @@ ul li {
 
 .formgroup {
   display: inline-block;
+}
+
+.redcounter, .inputerror {
+  color: var(--red)
+}
+
+input[type='text'].redinput {
+  border: 1px solid var(--red);
+  background-color: var(--palered);
+}
+
+.inputerror {
+  margin-bottom: 0;
 }
