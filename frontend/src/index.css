@@ -101,6 +101,8 @@ input:checked + .slider:before {
   border: 1px solid var(--bordergray);
   border-radius: 5px;
   padding: 3px;
+  display: block;
+  margin-top: 1rem;
   box-shadow: var(--shadowgray) 0px 0px 3px;
 }
 
@@ -268,13 +270,17 @@ a {
   padding: 1.5rem
 }
 
-.post1 {
+.post1, .post2 {
+  max-width: calc(50% - 5rem);
+  max-height: calc(50% - 5rem);
   width: calc(50% - 5rem);
+}
+
+.post1 {
   float: left;
 }
 
 .post2 {
-  width: calc(50% - 5rem);
   float: right;
 }
 
@@ -350,7 +356,7 @@ ul li {
 }
 
 .post {
-  background-color: var(--white);
+  word-wrap: break-word;
   box-shadow: var(--shadowgray) 0px 0px 10px;
   aspect-ratio: 1 / 1;
   padding: 1.5rem;

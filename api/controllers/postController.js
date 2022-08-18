@@ -19,13 +19,13 @@ exports.post_create = [
     });
   },
 
-  body('title', 'Your title must be less than 100 characters long.')
+  body('title', 'Your title must be less than 40 characters long.')
     .trim()
     .isLength({ max: 100 }),
   body('title', 'Your title must be at least 2 characters long.')
     .trim()
     .isLength({ min: 2 }),
-  body('content', 'Your content must be less than 300 characters.')
+  body('content', 'Your content must be less than 215 characters.')
     .trim()
     .isLength({ max: 300 }),
   body('content', 'Your content must be at least 2 characters long.')
@@ -249,15 +249,15 @@ exports.post_update = [
     });
   },
 
-  body('title', 'Your title must be less than 100 characters long.')
+  body('title', 'Your title must be less than 40 characters long.')
     .trim()
-    .isLength({ max: 100 }),
+    .isLength({ max: 40 }),
   body('title', 'Your title must be at least 2 characters long.')
     .trim()
     .isLength({ min: 2 }),
-  body('content', 'Your content must be less than 300 characters.')
+  body('content', 'Your content must be less than 215 characters.')
     .trim()
-    .isLength({ max: 300 }),
+    .isLength({ max: 215 }),
   body('content', 'Your content must be at least 2 characters long.')
     .trim()
     .isLength({ min: 2 }),
