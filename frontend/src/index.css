@@ -423,3 +423,15 @@ input[type='text'].redinput {
 .inputerror {
   margin-bottom: 0;
 }
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5rem;
+  background-color: var(--yellow);
+}
+
+footer a {
+  color: var(--black);
+}

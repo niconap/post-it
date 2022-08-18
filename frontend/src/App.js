@@ -7,6 +7,7 @@ import React from 'react';
 import PostPage from './PostPage';
 import Profile from './Profile';
 import RequestsPage from './RequestsPage';
+import Footer from './Footer';
 
 export default function App() {
   const acceptRequest = async (id, callback) => {
@@ -116,6 +117,7 @@ export default function App() {
             }
           />
         </Routes>
+        <Footer />
       </BrowserRouter>
     );
   } else {
