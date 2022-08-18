@@ -435,3 +435,12 @@ footer {
 footer a {
   color: var(--black);
 }
+
+footer span, footer a {
+  margin: 0.5rem;
+}
+
+#disclaimer {
+  padding: 1rem;
+  width: 50%;
+}

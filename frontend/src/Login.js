@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import Logo from './post_it_logo.png';
 
 function Login() {
@@ -97,6 +97,9 @@ function Login() {
         Don't have an account? Sign up <a href="/frontend/signup">here</a>
       </p>
       <button onClick={dummyLogin}>Use dummy account</button>
+      <br />
+      <br />
+      <NavLink to="/frontend/disclaimer">Disclaimer</NavLink>
     </div>
   );
 }

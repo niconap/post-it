@@ -4,7 +4,7 @@ function Footer() {
   return (
     <footer>
       <span>© 2022 Nico Nap</span>
-      <NavLink to="/privacypolicy">Privacy policy</NavLink>
+      <NavLink to="/frontend/disclaimer">Disclaimer</NavLink>
     </footer>
   );
 }

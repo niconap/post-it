@@ -8,6 +8,7 @@ import PostPage from './PostPage';
 import Profile from './Profile';
 import RequestsPage from './RequestsPage';
 import Footer from './Footer';
+import Disclaimer from './Disclaimer';
 
 export default function App() {
   const acceptRequest = async (id, callback) => {
@@ -82,6 +83,7 @@ export default function App() {
       <BrowserRouter>
         <Nav />
         <Routes>
+          <Route exact path="/frontend/disclaimer" element={<Disclaimer />} />
           <Route
             exact
             path="/frontend/profile"
@@ -125,6 +127,7 @@ export default function App() {
       <div className="bluebackground">
         <BrowserRouter>
           <Routes>
+            <Route exact path="/frontend/disclaimer" element={<Disclaimer />} />
             <Route exact path="/frontend/signup" element={<Signup />} />
             <Route path="/frontend/*" element={<Login />} />
           </Routes>

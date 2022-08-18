@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import uniqid from 'uniqid';
 import Logo from './post_it_logo.png';
 
@@ -96,6 +96,7 @@ function Signup() {
       <p>
         Already have an account? Log in <a href="/frontend">here</a>
       </p>
+      <NavLink to="/frontend/disclaimer">Disclaimer</NavLink>
     </div>
   );
 }
