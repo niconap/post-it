@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import PersonIcon from '@mui/icons-material/Person';
 
 function Nav() {
   const logOut = () => {
@@ -13,8 +14,11 @@ function Nav() {
         <h1>Post it!</h1>
       </NavLink>
       <div id="navlinks">
-        <NavLink id="bell" to="/frontend/requests">
+        <NavLink id="bell" className="navicon" to="/frontend/requests">
           <NotificationsIcon />
+        </NavLink>
+        <NavLink id="usericon" className="navicon" to="/frontend/users">
+          <PersonIcon />
         </NavLink>
         <a href={'/frontend/profile?id=' + localStorage.getItem('user')}>
           My profile

@@ -262,7 +262,7 @@ a {
   text-decoration: underline;
 }
 
-#bell svg {
+.navicon svg {
   position: relative;
   top: 5px;
 }
@@ -293,13 +293,19 @@ a {
   float: right;
 }
 
-.users {
+.feedusers, .pageusers {
   grid-area: users;
   background-color: var(--paleyellow);
   box-shadow: var(--shadowgray) 0px 20px 20px;
   width: 90%;
   padding: 1.5rem;
   margin: 2.5rem 0;
+}
+
+.pageusers {
+  margin: auto;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
 #postform {
@@ -459,4 +465,43 @@ footer span, footer a {
   width: 100%;
   text-align: center;
   margin-top: 1rem;
+}
+
+#usericon {
+  display: none;
+}
+
+@media screen and (max-width: 700px) {
+  #feed {
+    display: block;
+  }
+
+  .feedusers {
+    display: none;
+  }
+
+  .posts {
+    grid-area: none;
+    display: block;
+  }
+  .post1, .post2 {
+    float: none;
+  }
+
+  #usericon {
+    display: inline;
+  }
+
+  .post {
+    min-width: 90%;
+    margin: 1rem 0;
+  }
+
+  #postform {
+    text-align: center;
+  }
+
+  #picker {
+    text-align: center;
+  }
 }

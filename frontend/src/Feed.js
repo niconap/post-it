@@ -128,14 +128,16 @@ function Feed(props) {
                     );
                   })}
           </div>
-          <UserList
-            acceptRequest={props.acceptRequest}
-            declineRequest={props.declineRequest}
-            sendFriendRequest={props.sendFriendRequest}
-            revokeRequest={props.revokeRequest}
-            fetchUsers={fetchUsers}
-            users={users}
-          />
+          <div className="feedusers">
+            <UserList
+              acceptRequest={props.acceptRequest}
+              declineRequest={props.declineRequest}
+              sendFriendRequest={props.sendFriendRequest}
+              revokeRequest={props.revokeRequest}
+              fetchUsers={fetchUsers}
+              users={users}
+            />
+          </div>
         </div>
       </div>
     );

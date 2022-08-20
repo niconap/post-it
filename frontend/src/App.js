@@ -9,6 +9,7 @@ import Profile from './Profile';
 import RequestsPage from './RequestsPage';
 import Footer from './Footer';
 import Disclaimer from './Disclaimer';
+import Users from './Users';
 
 export default function App() {
   const acceptRequest = async (id, callback) => {
@@ -89,6 +90,18 @@ export default function App() {
             path="/frontend/profile"
             element={
               <Profile
+                acceptRequest={acceptRequest}
+                declineRequest={declineRequest}
+                sendFriendRequest={sendFriendRequest}
+                revokeRequest={revokeRequest}
+              />
+            }
+          />
+          <Route
+            exact
+            path="/frontend/users"
+            element={
+              <Users
                 acceptRequest={acceptRequest}
                 declineRequest={declineRequest}
                 sendFriendRequest={sendFriendRequest}

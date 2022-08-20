@@ -35,7 +35,7 @@ function UserList(props) {
   }, []);
 
   return (
-    <div className="users">
+    <>
       <h3>Find new friends!</h3>
       {users.map((user) => {
         return (
@@ -122,7 +122,7 @@ function UserList(props) {
           </div>
         );
       })}
-    </div>
+    </>
   );
 }
 
