@@ -1,7 +1,7 @@
 # Post it!
 
 ### What is Post it!?
-Post it! is a social media platform where you can find your friends and talk to each other by creating posts and commenting on them. Aside from that you can also connect with strangers through their posts! Upload your favourite picture as a profile picture and show it to everyone else!
+Post it! is a social media platform where you can find your friends and talk to each other by creating posts and commenting on them. Aside from that you can also connect with strangers through their posts! Upload your favourite picture as a profile picture and show it to everyone else! The concept of the social media page is that each post is a post-it (a sticky note). Therefore each post is pretty short, there's a maximum of 40 characters for the title and a maximum of 215 characters for the content.
 
 ### How does it work?
 In order to access Post it! you'll need to create an account or you can use the dummy account instead. Creating a post can be done on the homepage, commenting on a post can be done by clicking on the comment icon and liking a post can be done by clicking the heart icon. Uploading a profile picture is possible through your profile, click 'My profile' in the top right corner to access your profile. In order to add people as your friends, you simply click the 'Add friend' button on their profile or in the user list, they'll need to accept your friend request first before you can become friends.
