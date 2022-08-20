@@ -293,7 +293,7 @@ a {
   float: right;
 }
 
-.feedusers, .pageusers {
+.feedusers, .pageusers, .profileusers {
   grid-area: users;
   background-color: var(--paleyellow);
   box-shadow: var(--shadowgray) 0px 20px 20px;
@@ -494,14 +494,23 @@ footer span, footer a {
 
   .post {
     min-width: 90%;
-    margin: 1rem 0;
+    margin: auto;
+    margin-bottom: 2rem;
   }
 
   #postform {
     text-align: center;
   }
 
-  #picker {
+  #feedswitch {
     text-align: center;
+  }
+
+  #info-icon {
+    display: none;
+  }
+  .profileusers {
+    margin: auto;
+    width: 80%;
   }
 }

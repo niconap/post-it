@@ -71,23 +71,25 @@ function Feed(props) {
     let friendPostNumber = 0;
     return (
       <div id="container">
-        <span>General </span>
-        <label className="switch">
-          <input
-            type="checkbox"
-            onChange={() => {
-              if (mode === 'friends') {
-                setMode('general');
-              } else {
-                setMode('friends');
-              }
-            }}
-          />
-          <span className="slider"></span>
-        </label>
-        <span> Friends</span>
-        <div id="info-icon">
-          <InfoOutlinedIcon fontSize="small" sx={{ color: 'gray' }} />
+        <div id="feedswitch">
+          <span>General </span>
+          <label className="switch">
+            <input
+              type="checkbox"
+              onChange={() => {
+                if (mode === 'friends') {
+                  setMode('general');
+                } else {
+                  setMode('friends');
+                }
+              }}
+            />
+            <span className="slider"></span>
+          </label>
+          <span> Friends</span>
+          <div id="info-icon">
+            <InfoOutlinedIcon fontSize="small" sx={{ color: 'gray' }} />
+          </div>
         </div>
         <div id="feed">
           <PostForm fetchPosts={fetchPosts} />

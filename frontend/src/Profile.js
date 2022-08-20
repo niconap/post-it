@@ -184,28 +184,7 @@ function Profile(props) {
           ''
         )}
         <div id="feed">
-          <div className="posts">
-            {user.posts && user.posts.length !== 0 ? (
-              user.posts
-                .slice(0)
-                .reverse()
-                .map((post) => {
-                  let date = new Date(post.timeStamp);
-                  post.user = user;
-                  return (
-                    <Post
-                      key={uniqid()}
-                      fetchPosts={fetchUserData}
-                      date={date}
-                      post={post}
-                    />
-                  );
-                })
-            ) : (
-              <p>{user.firstName} hasn't published any posts yet.</p>
-            )}
-          </div>
-          <div className="users">
+          <div className="profileusers">
             <h3>Friends list</h3>
             {user.friends.length === 0 ? (
               <p>{user.firstName} doesn't have any friends yet</p>
@@ -227,6 +206,27 @@ function Profile(props) {
                 );
               })}
             </ul>
+          </div>
+          <div className="posts">
+            {user.posts && user.posts.length !== 0 ? (
+              user.posts
+                .slice(0)
+                .reverse()
+                .map((post) => {
+                  let date = new Date(post.timeStamp);
+                  post.user = user;
+                  return (
+                    <Post
+                      key={uniqid()}
+                      fetchPosts={fetchUserData}
+                      date={date}
+                      post={post}
+                    />
+                  );
+                })
+            ) : (
+              <p>{user.firstName} hasn't published any posts yet.</p>
+            )}
           </div>
         </div>
       </div>
