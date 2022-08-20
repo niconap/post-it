@@ -12,7 +12,7 @@ function Login() {
   let handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let res = await fetch('http://localhost:5000/api/auth/login', {
+      let res = await fetch('/api/auth/login', {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -41,7 +41,7 @@ function Login() {
 
   const dummyLogin = async () => {
     try {
-      let res = await fetch('http://localhost:5000/api/auth/login', {
+      let res = await fetch('/api/auth/login', {
         method: 'POST',
         mode: 'cors',
         headers: {

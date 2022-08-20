@@ -10,7 +10,7 @@ function PostForm(props) {
     e.preventDefault();
     setErrors([]);
     try {
-      let res = await fetch('http://localhost:5000/api/post/', {
+      let res = await fetch('/api/post/', {
         method: 'POST',
         mode: 'cors',
         headers: {

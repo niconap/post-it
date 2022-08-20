@@ -14,7 +14,7 @@ import Users from './Users';
 export default function App() {
   const acceptRequest = async (id, callback) => {
     try {
-      await fetch(`http://localhost:5000/api/user/friend/accept/${id}`, {
+      await fetch(`/api/user/friend/accept/${id}`, {
         method: 'PUT',
         mode: 'cors',
         headers: {
@@ -30,7 +30,7 @@ export default function App() {
 
   const declineRequest = async (id, callback) => {
     try {
-      await fetch(`http://localhost:5000/api/user/friend/decline/${id}`, {
+      await fetch(`/api/user/friend/decline/${id}`, {
         method: 'PUT',
         mode: 'cors',
         headers: {
@@ -46,7 +46,7 @@ export default function App() {
 
   const sendFriendRequest = async (id, callback) => {
     try {
-      await fetch(`http://localhost:5000/api/user/friend/request/${id}`, {
+      await fetch(`/api/user/friend/request/${id}`, {
         method: 'PUT',
         mode: 'cors',
         headers: {
@@ -62,17 +62,14 @@ export default function App() {
 
   const revokeRequest = async (id, callback) => {
     try {
-      await fetch(
-        `http://localhost:5000/api/user/friend/request/${id}/revoke`,
-        {
-          method: 'PUT',
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: localStorage.getItem('token'),
-          },
-        }
-      );
+      await fetch(`/api/user/friend/request/${id}/revoke`, {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('token'),
+        },
+      });
       callback();
     } catch (err) {
       console.log(err);

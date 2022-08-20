@@ -8,17 +8,14 @@ function Comment(props) {
 
   const handleDelete = async () => {
     try {
-      await fetch(
-        `http://localhost:5000/api/post/${props.post}/comment/${props.comment._id}`,
-        {
-          method: 'DELETE',
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: localStorage.getItem('token'),
-          },
-        }
-      );
+      await fetch(`/api/post/${props.post}/comment/${props.comment._id}`, {
+        method: 'DELETE',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('token'),
+        },
+      });
       props.getPost();
     } catch (err) {
       console.log(err);

@@ -14,7 +14,7 @@ function Feed(props) {
 
   const fetchPosts = async () => {
     try {
-      let res = await fetch('http://localhost:5000/api/post/friends', {
+      let res = await fetch('/api/post/friends', {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -28,7 +28,7 @@ function Feed(props) {
       console.log(err);
     }
     try {
-      let res = await fetch('http://localhost:5000/api/post/general', {
+      let res = await fetch('/api/post/general', {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -46,7 +46,7 @@ function Feed(props) {
 
   const fetchUsers = async () => {
     try {
-      let res = await fetch('http://localhost:5000/api/user/all', {
+      let res = await fetch('/api/user/all', {
         method: 'GET',
         mode: 'cors',
         headers: {

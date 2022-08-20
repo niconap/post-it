@@ -6,7 +6,7 @@ function Users(props) {
 
   const fetchUsers = async () => {
     try {
-      let res = await fetch('http://localhost:5000/api/user/all', {
+      let res = await fetch('/api/user/all', {
         method: 'GET',
         mode: 'cors',
         headers: {

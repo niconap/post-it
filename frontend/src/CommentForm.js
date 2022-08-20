@@ -9,20 +9,17 @@ function CommentForm(props) {
     setErrors([]);
     e.preventDefault();
     try {
-      let res = await fetch(
-        `http://localhost:5000/api/post/${props.postId}/comment`,
-        {
-          method: 'POST',
-          mode: 'cors',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: localStorage.getItem('token'),
-          },
-          body: JSON.stringify({
-            content: commentContent,
-          }),
-        }
-      );
+      let res = await fetch(`/api/post/${props.postId}/comment`, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('token'),
+        },
+        body: JSON.stringify({
+          content: commentContent,
+        }),
+      });
       let resJson = await res.json();
       if (resJson.errors) {
         setErrors(resJson.errors);

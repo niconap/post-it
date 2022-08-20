@@ -16,7 +16,7 @@ function Signup() {
     e.preventDefault();
     setErrors([]);
     try {
-      let res = await fetch('http://localhost:5000/api/auth/signup', {
+      let res = await fetch('/api/auth/signup', {
         method: 'POST',
         mode: 'cors',
         headers: {

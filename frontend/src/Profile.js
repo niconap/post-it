@@ -11,20 +11,17 @@ function Profile(props) {
   const [requests, setRequests] = useState([]);
 
   const fetchUserData = async () => {
-    let res = await fetch(
-      `http://localhost:5000/api/user/get/${searchParams.get('id')}`,
-      {
-        method: 'GET',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: localStorage.getItem('token'),
-        },
-      }
-    );
+    let res = await fetch(`/api/user/get/${searchParams.get('id')}`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token'),
+      },
+    });
     let resJson = await res.json();
     setUser(resJson);
-    let res2 = await fetch(`http://localhost:5000/api/user/requests`, {
+    let res2 = await fetch(`/api/user/requests`, {
       method: 'GET',
       mode: 'cors',
       headers: {
@@ -43,7 +40,7 @@ function Profile(props) {
 
   const handleRemoveFriend = async () => {
     try {
-      await fetch(`http://localhost:5000/api/user/friend/remove/${user._id}/`, {
+      await fetch(`/api/user/friend/remove/${user._id}/`, {
         method: 'PUT',
         mode: 'cors',
         headers: {
@@ -62,7 +59,7 @@ function Profile(props) {
     const formData = new FormData();
     formData.append('image', selectedImage);
     try {
-      await fetch(`http://localhost:5000/api/user/picture`, {
+      await fetch(`/api/user/picture`, {
         method: 'POST',
         mode: 'cors',
         headers: {
