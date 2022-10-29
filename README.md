@@ -12,4 +12,4 @@ Post it! was made using Node.js and React. Both the Node.js api and the React fr
 ### Where can I find Post it!?
 Post it! can be found by clicking [here](https://post-it-odinbook.herokuapp.com/frontend).
 
-Known issue: in the live version custom profile pictures are not shown correctly. This (probably) has to do with Heroku (the platform it is hosted on). Profile pictures are not stored in the database, but in a directory on the server. Uploading a profile picture still works and it will show correctly after uploading, but after a while it will disappear.
+Known issue: the live version does not show custom profile pictures correctly. This (probably) has to do with Heroku (the platform it is hosted on). Profile pictures are not stored in the database, but in a directory on the server. Uploading a profile picture still works and it will show correctly after uploading, but after a while it will disappear.
