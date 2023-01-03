@@ -1,6 +1,5 @@
-# Post it!
-
-*Live version:* you can view the live version by clicking [here](https://post-it-ah2k.onrender.com/frontend). It could take some time to load.
+<p align="center"><img width="300" alt="post_it_logo 666c828dcda82d1e8dc1" src="https://user-images.githubusercontent.com/34626207/210351637-787b94ca-671b-44ee-94af-2850ea9ea676.png"></p>
+*Live version:* you can view the live version of this project by clicking [here](https://post-it-ah2k.onrender.com/frontend). It could take some time to load.
 
 ### What is Post it!?
 Post it! is a social media platform where you can find your friends and talk to each other by creating posts and commenting on them. Aside from that you can also connect with strangers through their posts! Upload your favourite picture as a profile picture and show it to everyone else! The concept of the social media page is that each post is a post-it (a sticky note). Therefore each post is pretty short, there's a maximum of 40 characters for the title and a maximum of 215 characters for the content.
