@@ -1,6 +1,7 @@
 <p align="center"><img width="300" alt="post_it_logo 666c828dcda82d1e8dc1" src="https://user-images.githubusercontent.com/34626207/210351637-787b94ca-671b-44ee-94af-2850ea9ea676.png"></p>
 
 *Live version:* you can view the live version of this project by clicking [here](https://post-it-ah2k.onrender.com/frontend). It could take some time to load.
+
 **Known issue:** profile pictures do not load in the live demo, this is probably because they are removed by the service that hosts the demo. Uploading a profile picture **does** work and the uploaded picture will show up throughout the website.
 
 ## What is Post it!?
