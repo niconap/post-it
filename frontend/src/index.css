@@ -294,7 +294,7 @@ a:hover {
   grid-template-areas:
     'form form form'
     'posts posts users';
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns: calc(100% / 3) calc(100% / 3) calc(100% / 3);
 }
 
 .posts {
@@ -529,10 +529,6 @@ footer a {
     margin-top: 1em;
   }
 
-  #dropdown {
-    display: inline-block;
-  }
-
   input[type='submit'] {
     margin-top: 1em;
     width: 90%;
@@ -572,10 +568,6 @@ footer a {
     float: none;
   }
 
-  #usericon {
-    display: inline;
-  }
-
   .post {
     min-width: 80%;
     margin: auto;
@@ -601,7 +593,28 @@ footer a {
     width: 80%;
   }
 
+  #dropdown {
+    display: inline-block;
+  }
+
   #navlinks {
     display: none;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .posts {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .user button {
+    display: block;
+  }
+
+  .feedusers, .profileusers {
+    width: 80%;
   }
 }
