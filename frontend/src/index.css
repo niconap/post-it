@@ -504,10 +504,16 @@ footer a {
   display: none;
 }
 
+#dropdown {
+  display: none;
+  margin: 1em;
+  text-align: right;
+}
+
 @media screen and (max-width: 300px) {
-    .post {
-        aspect-ratio: 0;
-    }
+  .post {
+    aspect-ratio: 0;
+  }
 }
 
 @media screen and (max-width: 700px) {
@@ -515,8 +521,16 @@ footer a {
     display: block;
   }
 
+  form[name='pictureupload'] {
+    text-align: center;
+  }
+
   #feedswitch {
     margin-top: 1em;
+  }
+
+  #dropdown {
+    display: inline-block;
   }
 
   input[type='submit'] {
@@ -524,7 +538,9 @@ footer a {
     width: 90%;
   }
 
-  input[type='text'], input[type='password'], input[type='email'] {
+  input[type='text'],
+  input[type='password'],
+  input[type='email'] {
     margin: 0.5em 0;
     width: 90%;
   }
@@ -583,5 +599,9 @@ footer a {
     margin-top: 2em;
     margin-bottom: 2em;
     width: 80%;
+  }
+
+  #navlinks {
+    display: none;
   }
 }

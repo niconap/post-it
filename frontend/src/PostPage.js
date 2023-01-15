@@ -13,14 +13,17 @@ function PostPage() {
 
   const getPost = async () => {
     try {
-      let res = await fetch(`/api/post/${searchParams.get('id')}`, {
-        method: 'GET',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: localStorage.getItem('token'),
-        },
-      });
+      let res = await fetch(
+        `http://localhost:5000/api/post/${searchParams.get('id')}`,
+        {
+          method: 'GET',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: localStorage.getItem('token'),
+          },
+        }
+      );
       let resJson = await res.json();
       setPost(resJson);
       setIsLoaded(true);
@@ -43,7 +46,7 @@ function PostPage() {
   const handleLike = async () => {
     if (checkLike()) {
       try {
-        await fetch(`/api/post/like/${post._id}`, {
+        await fetch(`http://localhost:5000/api/post/like/${post._id}`, {
           method: 'DELETE',
           mode: 'cors',
           headers: {
@@ -56,7 +59,7 @@ function PostPage() {
       }
     } else {
       try {
-        await fetch(`/api/post/like/${post._id}`, {
+        await fetch(`http://localhost:5000/api/post/like/${post._id}`, {
           method: 'POST',
           mode: 'cors',
           headers: {
@@ -121,7 +124,7 @@ function PostPage() {
               {checkLike() ? (
                 <FavoriteOutlinedIcon
                   fontSize="small"
-                  sx={{ color: 'rgb(255, 73, 73)' }}
+                  sx={{ color: 'rgb(255, 209, 0)' }}
                 />
               ) : (
                 <FavoriteBorderOutlinedIcon fontSize="small" />

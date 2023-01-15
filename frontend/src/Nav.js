@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
+import DropDown from './Dropdown';
 
 function Nav() {
   const logOut = () => {
@@ -27,6 +28,7 @@ function Nav() {
           Log out
         </span>
       </div>
+      <DropDown logOut={logOut} />
     </div>
   );
 }
