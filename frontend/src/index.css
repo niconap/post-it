@@ -515,12 +515,16 @@ footer a {
     display: block;
   }
 
-  #postsubmit {
+  #feedswitch {
     margin-top: 1em;
-    width: calc(90%);
   }
 
-  input[type='text'] {
+  input[type='submit'] {
+    margin-top: 1em;
+    width: 90%;
+  }
+
+  input[type='text'], input[type='password'], input[type='email'] {
     margin: 0.5em 0;
     width: 90%;
   }
@@ -573,8 +577,11 @@ footer a {
   #info-icon {
     display: none;
   }
+
   .profileusers {
     margin: auto;
+    margin-top: 2em;
+    margin-bottom: 2em;
     width: 80%;
   }
 }
