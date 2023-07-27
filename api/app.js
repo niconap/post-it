@@ -29,6 +29,7 @@ app.use(helmet());
 
 dev_db_url = process.env.CONNECTION_STRING;
 var mongoDB = dev_db_url;
+mongoose.set('strictQuery', false);
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
