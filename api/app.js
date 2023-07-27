@@ -10,7 +10,7 @@ const passportJWT = require('passport-jwt');
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 const bcrypt = require('bcryptjs');
-const session = require('express-session');
+const cookieSession = require('cookie-session');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const indexRouter = require('./routes/index');
@@ -34,49 +34,50 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 passport.use(
-  new LocalStrategy(
-    {
-      usernameField: 'username',
-      passwordField: 'password',
-    },
-    function (username, password, done) {
-      User.findOne({ username: username }, (err, user) => {
-        if (err) return done(err);
-        if (!user) return done(null, false, { message: 'Incorrect username' });
-        bcrypt.compare(password, user.password, (err, res) => {
-          if (res) return done(null, user);
-          return done(null, false, { message: 'Incorrect password' });
-        });
-      });
-    }
-  )
+    new LocalStrategy(
+        {
+            usernameField: 'username',
+            passwordField: 'password',
+        },
+        function (username, password, done) {
+            User.findOne({ username: username }, (err, user) => {
+                if (err) return done(err);
+                if (!user)
+                    return done(null, false, { message: 'Incorrect username' });
+                bcrypt.compare(password, user.password, (err, res) => {
+                    if (res) return done(null, user);
+                    return done(null, false, { message: 'Incorrect password' });
+                });
+            });
+        }
+    )
 );
 
 passport.use(
-  new JWTStrategy(
-    {
-      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.SESSION_SECRET,
-    },
-    function (jwtPayload, done) {
-      return User.findById(jwtPayload.id, (err, user) => {
-        if (err) return done(err, false);
-        if (user) return done(null, user);
-        return done(null, false, { message: 'Something went wrong' });
-      });
-    }
-  )
+    new JWTStrategy(
+        {
+            jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+            secretOrKey: process.env.SESSION_SECRET,
+        },
+        function (jwtPayload, done) {
+            return User.findById(jwtPayload.id, (err, user) => {
+                if (err) return done(err, false);
+                if (user) return done(null, user);
+                return done(null, false, { message: 'Something went wrong' });
+            });
+        }
+    )
 );
 
 passport.serializeUser(function (user, done) {
-  done(null, user);
+    done(null, user);
 });
 
 passport.deserializeUser(function (id, done) {
-  User.findById(id, function (err, foundUser) {
-    if (err) done(err);
-    done(null, foundUser);
-  });
+    User.findById(id, function (err, foundUser) {
+        if (err) done(err);
+        done(null, foundUser);
+    });
 });
 
 // view engine setup
@@ -89,11 +90,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true,
-  })
+    cookieSession({
+        name: 'session',
+        keys: [process.env.SESSION_SECRET],
+    })
 );
 app.use(passport.session());
 
@@ -104,23 +104,23 @@ app.use('/api/post', postRouter);
 app.use('/images', express.static(process.cwd() + '/images'));
 app.use(express.static(path.join(__dirname, 'build')));
 app.use('/frontend', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  next(createError(404));
+    next(createError(404));
 });
 
 // error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.json('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.json('error');
 });
 
 module.exports = app;
